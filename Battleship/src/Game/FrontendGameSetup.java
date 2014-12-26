@@ -26,9 +26,9 @@ public class FrontendGameSetup
 	{
 		Ship ship = new Ship(new ShipPosition(new Point(5,5),"vertical"), ShipType.AIRCARRER, 1);
 		fieldToSet.setShipOnField(ship);
-		ship = new Ship(new ShipPosition(new Point(3,3),"vertical"), ShipType.AIRCARRER, 2);
+		ship = new Ship(new ShipPosition(new Point(3,3),"vertical"), ShipType.DESTROYER, 2);
 		fieldToSet.setShipOnField(ship);
-		ship = new Ship(new ShipPosition(new Point(7,7),"vertical"), ShipType.AIRCARRER, 3);
+		ship = new Ship(new ShipPosition(new Point(7,7),"vertical"), ShipType.YELLOW_SUBMARINE, 3);
 		fieldToSet.setShipOnField(ship);
 	}
 

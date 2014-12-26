@@ -11,7 +11,6 @@ public class Game
 		
 		frontend.callMenue();
 
-		
 	}
 
 }

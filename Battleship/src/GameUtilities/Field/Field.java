@@ -22,8 +22,7 @@ public class Field
 			{
 				activeShipsInField.addElement(ship);
 			}
-		}
-		
+		}		
 		return activeShipsInField;
 	}
 	
@@ -32,4 +31,15 @@ public class Field
 		shipsOnField.addElement(ship);
 	}
 	
+	public String toTransferDataString()
+	{
+		String transferDataString = "";
+		
+		for(Ship ship : shipsOnField)
+		{
+			transferDataString += ship.toTransferString();
+		}
+		
+		return transferDataString;
+	}
 }

@@ -15,6 +15,11 @@ public class Ship
 		this.shipType = type;
 		this.number = ShipNumber;
 	}
+	
+	public String toTransferString()
+	{
+		return "-" + Integer.toString(number) + ";" + shipType.toString() + ";" + shipPosition.toString() + ";" + align ;
+	}
 
 	public boolean isAlive()
 	{

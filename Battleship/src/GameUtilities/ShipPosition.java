@@ -32,7 +32,10 @@ public class ShipPosition
 		this.alignment = alignment;
 	}
 	
-	
+	public String toString()
+	{
+		return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
+	}
 	
 	
 }

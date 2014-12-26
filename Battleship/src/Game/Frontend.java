@@ -3,12 +3,15 @@ package Game;
 import java.util.Scanner;
 
 import GameConnections.ConnectionCommandHandler;
+import GameConnections.DataBox;
 import GameUtilities.Field.Field;
 
 public class Frontend 
 {
 	private Field fieldWithSettings;
 	private Thread connectionCommandHandler;
+	private FrontendGame frontendGame = new FrontendGame(this); //Send referenz to frontendGame
+	private Player player = new Player(true);
 		
 	public void callMenue()
 	{
@@ -23,6 +26,7 @@ public class Frontend
 		
 		System.out.println("Please select: ");
 		
+		player.sendFrontendReferenceToLogic(this);
 		connectionType = readMenueInput();
 		
 		//System.out.println("----" + connectionType);
@@ -148,6 +152,7 @@ public class Frontend
 		
 		if(checkPortNumber(portNo) && checkIpAddress(ipAddress))
 		{
+			this.player = new Player(false);
 			connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo, ipAddress));
 			connectionCommandHandler.start();
 			executeGameSetupMenue();
@@ -192,6 +197,25 @@ public class Frontend
 		{
 			this.fieldWithSettings = gameSetup.getFinischedField();
 		}
+		
+		sendInitFieldToPlayer();
+	}
+	
+	private void sendInitFieldToPlayer()
+	{
+		player.createOwnField(fieldWithSettings);
 	}
 
+//*****************************************************************************************************
+//		CALL BY REF
+	
+	public String getNextCommand()
+	{
+		return frontendGame.getNextMove();
+	}
+	
+	public boolean askLogikIsMoveValid()
+	{
+		return player.askLogikIsMoveValid();		
+	}
 }
