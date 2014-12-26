@@ -1,22 +1,16 @@
 package Game;
 
+import GameConnections.ConnectionCommandHandler;
+
 public class Game 
 {
 	
 	public static void main(String[] args) throws Exception 
 	{
-		boolean gameOver = false;
-		// TODO Auto-generated method stub
-		System.out.println("BATTLESHIP Start Game j/n");
+		Frontend frontend = new Frontend();
 		
-		
-		
-		while(!gameOver)
-		{
-			
-			
-			Thread.sleep(200);
-		}
+		frontend.callMenue();
+
 		
 	}
 

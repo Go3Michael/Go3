@@ -5,7 +5,12 @@ public class ShipPosition
 {
 	private Point xyPosition;
 	private String alignment;
-	private String direction;
+	
+	public ShipPosition(Point point, String alignment)
+	{
+		this.xyPosition = point;
+		this.alignment = alignment;
+	}
 	
 	public Point getXyPosition()
 	{		
@@ -27,15 +32,7 @@ public class ShipPosition
 		this.alignment = alignment;
 	}
 	
-	public String getDirection()
-	{
-		return direction;
-	}
 	
-	public void setDirection(String direction)
-	{
-		this.direction = direction;
-	}
 	
 	
 }

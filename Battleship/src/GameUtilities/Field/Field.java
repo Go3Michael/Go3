@@ -1,5 +1,6 @@
 package GameUtilities.Field;
 
+import java.awt.Point;
 import java.util.Vector;
 
 import GameUtilities.Ship;
@@ -7,15 +8,15 @@ import GameUtilities.ShipPosition;
 
 public class Field 
 {
-	private Vector<Ship> shipsInField;
-	private ShipPosition shipPosition;
-	//Array of FieldStates 10x10--??
+	private Vector<Ship> shipsOnField;
+	
+	//Array of FieldElements 10x10--??
 	
 	public Vector<Ship> getListOfActiveShips()
 	{	
 		Vector<Ship> activeShipsInField = new Vector<Ship>();
 		
-		for(Ship ship : shipsInField)
+		for(Ship ship : shipsOnField)
 		{
 			if(ship.isAlive())
 			{
@@ -26,6 +27,9 @@ public class Field
 		return activeShipsInField;
 	}
 	
-	
+	public void setShipOnField(Ship ship)
+	{
+		shipsOnField.addElement(ship);
+	}
 	
 }
