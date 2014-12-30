@@ -1,5 +1,6 @@
 package Game;
 
+import GameConnections.TestEnemy;
 import GameUtilities.Field.Field;
 
 public class Logic 
@@ -10,7 +11,10 @@ public class Logic
 	private Field enemyField;
 	private boolean isMyTurn;
 	
-	public Logic(boolean isFirstPlayer)
+	//********only for tests---------------------
+	private TestEnemy testEnemy = new TestEnemy();
+	
+ 	public Logic(boolean isFirstPlayer)
 	{
 		this.isMyTurn = isFirstPlayer;
 	}
@@ -20,6 +24,11 @@ public class Logic
 		this.isMyTurn = isMyTurn;
 	}
 	
+	public void setEnemyField(Field enemyField)
+	{
+		this.enemyField =  enemyField;
+	}
+
 	public void setInitField(Field ownInitField)
 	{
 		this.ownField = ownField;
@@ -30,6 +39,12 @@ public class Logic
 	{
 		commandHandler = new CommandHandler(this); //Create commandHandler and send reference
 		commandHandler.sendInitField(this.ownField);
+		
+		
+		//************only for Tests----------
+		testEnemy.sendFieldInitCommand();
+		//**********************************-------------------
+		
 		waitForSettingsOtherPlayer();
 	}
 	
@@ -47,7 +62,12 @@ public class Logic
 	{
 		if(isMyTurn)
 		{
-			referenceFrontend.getNextCommand();
+			commandHandler.sendAttacCommand(referenceFrontend.getNextCommand());
+			isMyTurn = false;
+		}
+		else
+		{
+			//wait for enemy move
 		}
 	}
 	

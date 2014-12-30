@@ -9,7 +9,7 @@ import GameUtilities.Field.Field;
 
 public class FrontendGameSetup 
 {
-	private Field fieldToSet;
+	private Field fieldToSet = new Field();
 	
 	public boolean callMenue()
 	{

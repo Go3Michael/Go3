@@ -8,9 +8,19 @@ public class Command
 	
 	public Command(int commandNr,Object data, String type)
 	{
-		this.commandData = data;
+		this.commandData = (Object)data;
 		this.commandType = type;
 		this.commandNr = commandNr; 
+	}
+	
+	public Object getCommandData()
+	{
+		return this.commandData;
+	}
+	
+	public String getType()
+	{
+		return this.commandType;
 	}
 	
 	public String toString()

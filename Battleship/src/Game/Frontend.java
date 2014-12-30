@@ -201,12 +201,13 @@ public class Frontend
 			this.fieldWithSettings = gameSetup.getFinischedField();
 		}
 		
-		sendInitFieldToPlayer();
+		sendInitFieldToLogic();
 	}
 	
-	private void sendInitFieldToPlayer()
+	private void sendInitFieldToLogic()
 	{
-		player.createOwnField(fieldWithSettings);
+		//player.createOwnField(fieldWithSettings);
+		logic.setInitField(fieldWithSettings);
 	}
 
 //*****************************************************************************************************

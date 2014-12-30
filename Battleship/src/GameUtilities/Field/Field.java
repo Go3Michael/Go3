@@ -8,7 +8,7 @@ import GameUtilities.ShipPosition;
 
 public class Field 
 {
-	private Vector<Ship> shipsOnField;
+	private Vector<Ship> shipsOnField = new Vector<Ship>();
 	
 	//Array of FieldElements 10x10--??
 	
