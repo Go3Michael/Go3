@@ -12,6 +12,7 @@ public class Frontend
 	private Thread connectionCommandHandler;
 	private FrontendGame frontendGame = new FrontendGame(this); //Send referenz to frontendGame
 	private Player player = new Player(true);
+	private Logic logic = new Logic(true);
 		
 	public void callMenue()
 	{
@@ -27,6 +28,7 @@ public class Frontend
 		System.out.println("Please select: ");
 		
 		player.sendFrontendReferenceToLogic(this);
+		logic.setFrontendReference(this);
 		connectionType = readMenueInput();
 		
 		//System.out.println("----" + connectionType);
@@ -152,7 +154,8 @@ public class Frontend
 		
 		if(checkPortNumber(portNo) && checkIpAddress(ipAddress))
 		{
-			this.player = new Player(false);
+			//this.player = new Player(false);
+			this.logic = new Logic(false);
 			connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo, ipAddress));
 			connectionCommandHandler.start();
 			executeGameSetupMenue();
@@ -216,6 +219,7 @@ public class Frontend
 	
 	public boolean askLogikIsMoveValid()
 	{
-		return player.askLogikIsMoveValid();		
+		return logic.isMoveValid();
+				//player.askLogikIsMoveValid();		
 	}
 }
