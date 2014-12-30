@@ -31,7 +31,8 @@ public class Field
 		shipsOnField.addElement(ship);
 	}
 	
-	public String toTransferDataString()
+	@Override
+	public String toString()
 	{
 		String transferDataString = "";
 		

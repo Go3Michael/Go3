@@ -16,7 +16,7 @@ public class CommandHandler
 
 	public void sendInitField(Field field)
 	{
-		sendCommandToBox(field, "INIT_FIELD");
+		sendCommandToBox((Object)field, "INIT_FIELD");
 		receiveInitFieldFromEnemy();
 	}
 	

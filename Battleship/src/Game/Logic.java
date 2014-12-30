@@ -31,19 +31,19 @@ public class Logic
 
 	public void setInitField(Field ownInitField)
 	{
-		this.ownField = ownField;
+		this.ownField = ownInitField;
 		sendFieldToOtherPlayer();
 	}
 	
 	private void sendFieldToOtherPlayer() 
 	{
 		commandHandler = new CommandHandler(this); //Create commandHandler and send reference
-		commandHandler.sendInitField(this.ownField);
-		
 		
 		//************only for Tests----------
-		testEnemy.sendFieldInitCommand();
+				testEnemy.sendFieldInitCommand();
 		//**********************************-------------------
+				
+		commandHandler.sendInitField(this.ownField);
 		
 		waitForSettingsOtherPlayer();
 	}
@@ -54,11 +54,11 @@ public class Logic
 		{
 			wait(300);
 		}
-		
-		startGame();
+		referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
+		startNextMove();
 	}
 	
-	private void startGame()
+	private void startNextMove()
 	{
 		if(isMyTurn)
 		{
@@ -69,6 +69,11 @@ public class Logic
 		{
 			//wait for enemy move
 		}
+	}
+	
+	private void waitForEnemyMove()
+	{
+		
 	}
 	
 	public boolean isMoveValid()

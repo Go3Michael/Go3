@@ -3,7 +3,7 @@ package GameConnections;
 public class ConnectionCommandHandler implements Runnable 
 {
 	private Connection connection = null;
-	private static boolean abortConnection = false;
+	private static boolean abortConnection = false; //static.. you can call it from everywhere
 	
 	public ConnectionCommandHandler() 
 	{

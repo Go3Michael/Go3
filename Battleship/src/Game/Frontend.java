@@ -212,7 +212,12 @@ public class Frontend
 
 //*****************************************************************************************************
 //		CALL BY REF
+	public void sendFeedbackThatEnemyHasInitHisField()
+	{
+		System.out.println("\n Enemy has init his field");
+	}
 	
+
 	public String getNextCommand()
 	{
 		return frontendGame.getNextMove();

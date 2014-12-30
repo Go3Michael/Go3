@@ -27,7 +27,7 @@ public class DataBox
 			}
 		}
 		
-		accessForSendCommands = true;
+		accessForSendCommands = false; //lock access for other calls
 		
 		return true;
 	}
@@ -51,7 +51,7 @@ public class DataBox
 			}
 		}
 		
-		accessForReceiveCommands = false;
+		accessForReceiveCommands = false; //lock acces for other calls
 		
 		return true;
 	}

@@ -21,6 +21,7 @@ public class TestEnemy
 	public void sendFieldInitCommand()
 	{
 		fillFieldWithShips();
+		wait(1500);
 		DataBox.pushReceiveCommand(createFieldInitCommand());
 	}
 	
@@ -43,5 +44,17 @@ public class TestEnemy
 	private int getNewCommandNo()
 	{
 		return ++this.commandNo;
+	}
+	
+	private void wait(int ms)
+	{
+		try
+		{
+			Thread.sleep(ms);
+		}
+		catch(Exception e)
+		{
+			//Sinnlos
+		}
 	}
 }
