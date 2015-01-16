@@ -13,6 +13,7 @@ public class Logic
 	
 	//********only for tests---------------------
 	private TestEnemy testEnemy = new TestEnemy();
+	//*****************************************
 	
  	public Logic(boolean isFirstPlayer)
 	{

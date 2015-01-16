@@ -1,5 +1,7 @@
 package GameConnections;
 
+import GameUtilities.Command;
+
 public class ConnectionCommandHandler implements Runnable 
 {
 	private Connection connection = null;
@@ -25,8 +27,7 @@ public class ConnectionCommandHandler implements Runnable
 	public static void abortConnection()
 	{
 		self:abortConnection = true;
-	}
-	
+	}	
 
 	@Override
 	public void run() 
@@ -40,5 +41,14 @@ public class ConnectionCommandHandler implements Runnable
 		}
 		
 	}
+	
+	//************private functions for Data Box communication***********
+	
+	private Command getNextCommandFromDataBox()
+	{	
+		return DataBox.popSendCommand();
+	}
+	
+	//private void 
 
 }

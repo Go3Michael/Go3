@@ -10,7 +10,6 @@ public abstract class Connection
 	public abstract void sendCommand();
 
 	
-	
 }
 ////client
 //class TCPServer
@@ -45,6 +44,7 @@ public abstract class Connection
 //	Socket clientSocket = new Socket("localhost", 8010);
 //	DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 //	BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
 //	sentence = inFromUser.readLine();
 //	outToServer.writeBytes(sentence + '\n');
 //	modifiedSentence = inFromServer.readLine();
