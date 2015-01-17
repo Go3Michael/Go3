@@ -37,7 +37,11 @@ public class ConnectionCommandHandler implements Runnable
 		
 		while(!abortConnection)
 		{
+			//if(connection isttypeOf TCPConnection)
+			//{
+				
 			
+			//}
 		}
 		
 	}

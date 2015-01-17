@@ -13,7 +13,7 @@ public class TCPConnection extends Connection
 	
 	public TCPConnection(int port, String ipAdress)
 	{
-		
+		//xxxxxxx
 	}
 	
 	@Override
