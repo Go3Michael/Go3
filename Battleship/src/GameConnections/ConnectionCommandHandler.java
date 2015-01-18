@@ -61,6 +61,7 @@ public class ConnectionCommandHandler implements Runnable
 			this.commandRecieve = connectionLogic.getCommandFromPlayer();
 			sendCommandToDataBox(commandRecieve);
 
+		
 			wait(300);
 		}
 		while(!abortConnection);

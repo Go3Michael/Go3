@@ -41,7 +41,7 @@ public class Logic
 		commandHandler = new CommandHandler(this); //Create commandHandler and send reference
 		
 		//************only for Tests----------
-				testEnemy.sendFieldInitCommand();
+				//HtestEnemy.sendFieldInitCommand();
 		//**********************************-------------------
 				
 		commandHandler.sendInitField(this.ownField);
@@ -54,6 +54,7 @@ public class Logic
 		while(enemyField == null)
 		{
 			wait(300);
+			System.out.println("wait for settings other player");
 		}
 		referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
 		startNextMove();
