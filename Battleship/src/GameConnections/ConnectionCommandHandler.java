@@ -12,15 +12,30 @@ public class ConnectionCommandHandler implements Runnable
 		this.connection = new LocalConnection();
 	}
 	
+	//Constructor Server Connection
 	public ConnectionCommandHandler(int port)
 	{
-		this.connection = new TCPConnection(port);
+		try
+		{
+			this.connection = new TCPConnectionServer(port);
+		}
+		catch(Exception exception)
+		{
+			System.out.println("Can not create connection. Please restart the Game !!!\n Exception:" + exception.toString());
+		}
 	}
 	
-	// Client Connection
+	//Constructor Client Connection
 	public ConnectionCommandHandler(int port, String ipAdress)
 	{
-		this.connection = new TCPConnection(port, ipAdress);
+		try
+		{
+			this.connection = new TCPConnectionClient(port, ipAdress);
+		}
+		catch(Exception exception)
+		{
+			System.out.println("Can not create connection. Please restart the Game !!!\n Exception:" + exception.toString());
+		}
 	}
 		
 	//Aborts all connections of this type
@@ -53,6 +68,9 @@ public class ConnectionCommandHandler implements Runnable
 		return DataBox.popSendCommand();
 	}
 	
-	//private void 
+	private void sendCommandToDataBox(Command command)
+	{
+		DataBox.pushReceiveCommand(command);
+	}
 
 }
