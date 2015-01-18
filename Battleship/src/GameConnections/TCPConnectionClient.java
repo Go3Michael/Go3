@@ -11,7 +11,7 @@ import GameUtilities.Command;
 
 public class TCPConnectionClient extends Connection
 {
-	BufferedReader inputReader = new BufferedReader( new InputStreamReader(System.in));
+	BufferedReader inputReader;
 	DataOutputStream outputStream;
 	Socket clientSocket;
 	
@@ -19,6 +19,7 @@ public class TCPConnectionClient extends Connection
 	{
 		this.clientSocket = new Socket(ipAdress, port);
 		outputStream = new DataOutputStream(clientSocket.getOutputStream());
+		inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		//xxxxxxx
 	}
 	
