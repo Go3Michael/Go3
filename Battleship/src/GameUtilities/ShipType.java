@@ -5,6 +5,4 @@ public enum ShipType
 	DESTROYER,
 	YELLOW_SUBMARINE,
 	AIRCARRER;
-	
-
 }

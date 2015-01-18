@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 import GameUtilities.Ship;
 import GameUtilities.ShipPosition;
@@ -18,17 +19,12 @@ public class CpuPlayer
     private Field fieldWithSettings;
     private List<Point> enemyShot = new ArrayList<Point>();
     private List<Point> cpuShot = new ArrayList<Point>();
-    private int size_ShipTypeEnum = ShipType.values().length;
-    private int size_ShipAlignmentEnum = ShipAlignment.values().length;
+    private int sizeShipTypeEnum = ShipType.values().length;
+    private int sizeShipAlignmentEnum = ShipAlignment.values().length;
     private Point actShot;
-    
-    
-    
+
     public void test()
     {
-
-	
-	
 	Point point = new Point();
 	System.out.println(this.cpuShot.toString());
 	System.out.println("Schuss: " + shotAtEnemie());
@@ -36,10 +32,15 @@ public class CpuPlayer
 	System.out.println("ende");
     }
 
-    // geprüft
+    /**
+     * Ermittelt, ob bereits eine Schuss auf die Koordinaten abgefeuert wurde, wenn ja, wird werden neue Koordinaten
+     * ermittelt.
+     * 
+     * @return
+     */
     public Point shotAtEnemie()
     {
-	
+
 	boolean[] shotFlag = new boolean[2];
 	shotFlag[0] = true;
 	shotFlag[1] = true;
@@ -48,7 +49,6 @@ public class CpuPlayer
 
 	while ((shotFlag[0] == true) && (shotFlag[1] == true))
 	{
-
 	    for (Point shot : this.cpuShot)
 	    {
 		if (shot.equals(this.actShot))
@@ -66,25 +66,43 @@ public class CpuPlayer
     {
 	int posX = this.getRandomValue(10);
 	int posY = this.getRandomValue(10);
-
-	int shipAlignmentRand = this.getRandomValue(size_ShipAlignmentEnum);
-	String alignment = this.getShipTypeAlignment(shipAlignmentRand);
-
+	
+	int shipAlignmentRand = this.getRandomValue(sizeShipAlignmentEnum);
+	String alignment = "HORIZONTAL";
+	
 	Point point = new Point(posX, posY);
-	ShipPosition position = new ShipPosition(point, alignment);
-
-	int shipTypeRand = this.getRandomValue(size_ShipTypeEnum);
-	Ship ship = new Ship(position, ShipType.values()[shipTypeRand], 1);
+	ShipPosition position1 = new ShipPosition(point, alignment);
+	ShipPosition position2 = new ShipPosition(point, alignment);
+	ShipPosition position3 = new ShipPosition(point, alignment);
+	
+	
+	Ship ship1 = new Ship(position1, ShipType.AIRCARRER, 1);
+	Ship ship2 = new Ship(position2, ShipType.DESTROYER, 2);
+	Ship ship3= new Ship(position3, ShipType.YELLOW_SUBMARINE, 3);
+	
 
 	Field field = new Field();
-	field.setShipOnField(ship);
+	field.setShipOnField(ship1);
+	
+//        if(alignment == ShipAlignment.HORIZONTAL){
+//            
+//    	}
+//    	else{
+//    	    // länge des schiffes erweitern
+//    	}
+	
+	
 
     }
 
+ 
+    
+    
     /**
      * Ermittelt einen Zufallszahl die größer als 0 ist und im Bereich vom übergebenen Wert.
      * 
-     * @param integer valueRange
+     * @param integer
+     *            valueRange
      * @return integer
      */
     private int getRandomValue(int valueRange)
@@ -101,22 +119,23 @@ public class CpuPlayer
 	return returnValue;
     }
 
-    /**
-     * Gibt die Tye des Schiffes zurück
-     * 
-     * @param integer index
-     * @return string
-     */
-    private String getShipTypeAlignment(int index)
-    {
-	String shipAlignmentString;
-	ShipAlignment shipAlignmentValue;
-	shipAlignmentValue = ShipAlignment.values()[index];
-
-	shipAlignmentString = shipAlignmentValue.toString();
-
-	return shipAlignmentString;
-    }
+//    /**
+//     * Gibt die Tye des Schiffes zurück
+//     * 
+//     * @param integer
+//     *            index
+//     * @return string
+//     */
+//    private Enum getShipTypeAlignment(int index)
+//    {
+//	ShipType shipAlignmentString;
+//	ShipAlignment shipAlignmentValue;
+//	shipAlignmentValue = ShipAlignment.values()[index];
+//
+//	// shipAlignmentString = shipAlignmentValue.toString();
+//
+//	return shipAlignmentValue;
+//    }
 
     /**
      * Setzt einen Schuss mit dem Zufallsgenerator ab
