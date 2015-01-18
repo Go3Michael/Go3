@@ -11,7 +11,7 @@ public class Frontend
 	private Field fieldWithSettings;
 	private Thread connectionCommandHandler;
 	private FrontendGame frontendGame = new FrontendGame(this); //Send referenz to frontendGame
-	//private Player player = new Player(true);
+	private Player player = new Player(true);
 	private Logic logic = new Logic(true);
 		
 	public void callMenue()
@@ -27,7 +27,7 @@ public class Frontend
 		
 		System.out.println("Please select: ");
 		
-		//player.sendFrontendReferenceToLogic(this);
+		player.sendFrontendReferenceToLogic(this);
 		logic.setFrontendReference(this);
 		connectionType = readMenueInput();
 		
@@ -217,6 +217,7 @@ public class Frontend
 		System.out.println("\n Enemy has init his field");
 	}
 	
+
 	public String getNextCommand()
 	{
 		return frontendGame.getNextMove();
