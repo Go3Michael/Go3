@@ -14,7 +14,14 @@ public class LocalConnection extends Connection
 	}
 
 	@Override
-	public void sendCommand() 
+	public void sendCommand(Command command) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void close()
 	{
 		// TODO Auto-generated method stub
 		

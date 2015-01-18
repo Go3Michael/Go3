@@ -4,6 +4,8 @@ import GameUtilities.Command;
 
 public class ConnectionCommandHandler implements Runnable 
 {
+	private Command commandSend;
+	private Command commandRecieve;
 	private Connection connection = null;
 	private static boolean abortConnection = false; //static.. you can call it from everywhere
 	
@@ -47,17 +49,23 @@ public class ConnectionCommandHandler implements Runnable
 	@Override
 	public void run() 
 	{
+		ConnectionLogic connectionLogic = new ConnectionLogic(this.connection);
+		
 		abortConnection = false;
 		
-		
-		while(!abortConnection)
+		do
 		{
-			//if(connection isttypeOf TCPConnection)
-			//{
-				
+			this.commandSend = getNextCommandFromDataBox();
+			connectionLogic.sendCommandToPlayer(this.commandSend);
 			
-			//}
+			this.commandRecieve = connectionLogic.getCommandFromPlayer();
+			sendCommandToDataBox(commandRecieve);
+
+			wait(300);
 		}
+		while(!abortConnection);
+		
+		connectionLogic.closeConnection();
 		
 	}
 	
@@ -71,6 +79,18 @@ public class ConnectionCommandHandler implements Runnable
 	private void sendCommandToDataBox(Command command)
 	{
 		DataBox.pushReceiveCommand(command);
+	}
+	
+	private void wait(int ms)
+	{  
+		try
+		{
+			Thread.sleep(ms);
+		}
+		catch(Exception e)
+		{
+			//mir doch wurst
+		}
 	}
 
 }
