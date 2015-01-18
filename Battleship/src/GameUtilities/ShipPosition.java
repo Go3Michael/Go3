@@ -37,5 +37,5 @@ public class ShipPosition
 		return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
 	}
 	
-	
+	Point point = new Point(1,1);
 }
