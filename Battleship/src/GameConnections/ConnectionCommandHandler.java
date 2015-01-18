@@ -1,5 +1,6 @@
 package GameConnections;
 
+import Game.GlobalGameData;
 import GameUtilities.Command;
 
 public class ConnectionCommandHandler implements Runnable 
@@ -17,6 +18,8 @@ public class ConnectionCommandHandler implements Runnable
 	//Constructor Server Connection
 	public ConnectionCommandHandler(int port)
 	{
+		GlobalGameData.setIsMyTurn(true);
+		
 		try
 		{
 			this.connection = new TCPConnectionServer(port);
@@ -30,6 +33,8 @@ public class ConnectionCommandHandler implements Runnable
 	//Constructor Client Connection
 	public ConnectionCommandHandler(int port, String ipAdress)
 	{
+		GlobalGameData.setIsMyTurn(false);
+		
 		try
 		{
 			this.connection = new TCPConnectionClient(port, ipAdress);
@@ -55,12 +60,19 @@ public class ConnectionCommandHandler implements Runnable
 		
 		do
 		{
-			this.commandSend = getNextCommandFromDataBox();
-			connectionLogic.sendCommandToPlayer(this.commandSend);
 			
-			this.commandRecieve = connectionLogic.getCommandFromPlayer();
-			sendCommandToDataBox(commandRecieve);
-
+			if(GlobalGameData.isMyTurn())
+			{
+				this.commandSend = getNextCommandFromDataBox();
+				connectionLogic.sendCommandToPlayer(this.commandSend);
+				GlobalGameData.setIsMyTurn(false);
+			}
+			else
+			{
+				this.commandRecieve = connectionLogic.getCommandFromPlayer();
+				sendCommandToDataBox(commandRecieve);
+				GlobalGameData.setIsMyTurn(true);
+			}
 		
 			wait(300);
 		}
@@ -79,6 +91,7 @@ public class ConnectionCommandHandler implements Runnable
 	
 	private void sendCommandToDataBox(Command command)
 	{
+		//System.out.print(arg0);
 		DataBox.pushReceiveCommand(command);
 	}
 	

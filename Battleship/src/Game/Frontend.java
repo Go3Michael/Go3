@@ -53,7 +53,7 @@ public class Frontend
 	{
 		switch(connectionType)
 		{
-			case "H":
+			case "H":				
 				readHostSettings();
 				return true;
 				

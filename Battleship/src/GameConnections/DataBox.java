@@ -39,7 +39,7 @@ public class DataBox
 	
 	private static boolean getAccessReceiveCommands()
 	{
-		while(!accessForSendCommands)
+		while(!accessForReceiveCommands)
 		{
 			try
 			{

@@ -20,8 +20,8 @@ public class TCPConnectionClient extends Connection
 	public TCPConnectionClient(int port, String ipAdress) throws UnknownHostException, IOException
 	{
 		this.clientSocket = new Socket(ipAdress, port);
-		outputStream = new DataOutputStream(clientSocket.getOutputStream());
-		inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		this.outputStream = new DataOutputStream(clientSocket.getOutputStream());
+		this.inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		
 		convert = new CommandConverter();
 		//xxxxxxx
@@ -32,15 +32,22 @@ public class TCPConnectionClient extends Connection
 	{
 		// TODO Auto-generated method stub
 		String inputString = recieveStream();
-		
+		System.out.println(inputString);
 		return convert.convertToGameCommand(inputString);
 	}
 	
 	private String recieveStream()
 	{
 		String inputString = "";
+		try {
+			inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try 
 		{
+			System.out.println("try to receive");
 			inputString = inputReader.readLine(); 
 		}
 		catch(Exception exception)
@@ -62,6 +69,12 @@ public class TCPConnectionClient extends Connection
 
 	private void sendStream(String tcpString)
 	{
+		try {
+			outputStream = new DataOutputStream(clientSocket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try 
 		{
 			outputStream.writeBytes(tcpString);

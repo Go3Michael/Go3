@@ -25,6 +25,7 @@ public class TCPConnectionServer extends Connection
 	{	
 		this.serverSocket = new ServerSocket(port);
 		connectionSocket = serverSocket.accept();
+		System.out.println("connected");
 		inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		outputStream = new DataOutputStream(connectionSocket.getOutputStream());
 		
@@ -36,15 +37,22 @@ public class TCPConnectionServer extends Connection
 	{
 		// TODO Auto-generated method stub
 		String inputString = recieveStream();
-		
+		System.out.println(inputString);
 		return convert.convertToGameCommand(inputString);
 	}
 	
 	private String recieveStream()
 	{
 		String inputString = "";
+		try {
+			inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try 
 		{
+			System.out.println("try to receive");
 			inputString = inputReader.readLine(); 
 		}
 		catch(Exception exception)
@@ -59,16 +67,23 @@ public class TCPConnectionServer extends Connection
 	public void sendCommand(Command command)
 	{
 		String tcpString = convert.convertToTCPString(command);
-		tcpString = "initialString:FromServer";
+		tcpString = "fuck you";
 	
 		sendStream(tcpString);
 	}
 
 	private void sendStream(String tcpString)
 	{
+		try {
+			outputStream = new DataOutputStream(connectionSocket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try 
 		{
 			outputStream.writeBytes(tcpString);
+			System.out.println("write in Buffer:" + tcpString);
 		}
 		catch(Exception exception)
 		{
