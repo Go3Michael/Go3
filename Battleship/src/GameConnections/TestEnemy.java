@@ -33,7 +33,7 @@ public class TestEnemy
 	
 	private void fillFieldWithShips()
 	{
-		Ship ship = new Ship(new ShipPosition(new Point(4,5),"vertical"), ShipType.AIRCARRER, 1);
+		Ship ship = new Ship(new ShipPosition(new Point(4,5),"vertical"), ShipType.AIRCARRIER, 1);
 		enemyField.setShipOnField(ship);
 		ship = new Ship(new ShipPosition(new Point(2,3),"vertical"), ShipType.DESTROYER, 2);
 		enemyField.setShipOnField(ship);

@@ -21,7 +21,7 @@ public class Ship
 	
 		switch (this.shipType)
 		{
-		    case AIRCARRER: countSector = 5;
+		    case AIRCARRIER: countSector = 5;
 			break;
 		    case DESTROYER: countSector = 4;
 				break;

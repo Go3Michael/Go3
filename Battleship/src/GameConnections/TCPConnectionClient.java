@@ -65,7 +65,7 @@ public class TCPConnectionClient extends Connection
 //			System.out.println("Read message from server press enter");
 //			inFromUser.readLine();
 			System.out.println("Wait for Server...");
-			//inputString = inputReader.readLine(); 
+			inputString = inputReader.readLine(); 
 			System.out.println("after readLine()");
 		}
 		catch(Exception exception)
