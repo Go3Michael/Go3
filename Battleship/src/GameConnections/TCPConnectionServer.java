@@ -1,9 +1,11 @@
 package GameConnections;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -14,7 +16,9 @@ import GameUtilities.Command;
 public class TCPConnectionServer extends Connection
 {
 	BufferedReader inputReader;
-	DataOutputStream outputStream;
+	//DataOutputStream outputStream;
+	BufferedWriter outputStream;
+
 	
 	ServerSocket serverSocket;
 	Socket connectionSocket;
@@ -24,10 +28,15 @@ public class TCPConnectionServer extends Connection
 	public TCPConnectionServer(int port) throws UnknownHostException,IOException 
 	{	
 		this.serverSocket = new ServerSocket(port);
+		System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
+		
 		connectionSocket = serverSocket.accept();
-		System.out.println("connected");
+		System.out.println("Just connected to " + connectionSocket.getRemoteSocketAddress());
+		
 		inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-		outputStream = new DataOutputStream(connectionSocket.getOutputStream());
+		//outputStream = new DataOutputStream(connectionSocket.getOutputStream());
+		
+		outputStream = new BufferedWriter(new OutputStreamWriter(connectionSocket.getOutputStream()));
 		
 		convert = new CommandConverter();
 	}
@@ -44,16 +53,21 @@ public class TCPConnectionServer extends Connection
 	private String recieveStream()
 	{
 		String inputString = "";
-		try {
-			inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			//inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		try 
 		{
-			System.out.println("try to receive");
+//			BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+//			System.out.println("Read message from client press enter");
+//			System.out.println("try to receive");
+//			inFromUser.readLine();
+			System.out.println("Wait for Client...");
 			inputString = inputReader.readLine(); 
+			System.out.println("after readLine()");
 		}
 		catch(Exception exception)
 		{
@@ -66,23 +80,36 @@ public class TCPConnectionServer extends Connection
 	@Override
 	public void sendCommand(Command command)
 	{
-		String tcpString = convert.convertToTCPString(command);
-		tcpString = "fuck you";
+		String tcpString;
+		if (command == null) {
+			//Send keep alive
+			tcpString = "1/Keep alive!/KEEP_ALIVE";
+		} else {
+			tcpString = convert.convertToTCPString(command);
+			tcpString = "1/Fuck you/TEST_FROM_SERVER";
+		}
 	
 		sendStream(tcpString);
 	}
 
 	private void sendStream(String tcpString)
 	{
-		try {
-			outputStream = new DataOutputStream(connectionSocket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			outputStream = new DataOutputStream(connectionSocket.getOutputStream());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		try 
 		{
-			outputStream.writeBytes(tcpString);
+//			BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+//			System.out.println("Press Enter to send message to client");
+//			inFromUser.readLine();
+			//outputStream.writeBytes(tcpString);
+			outputStream.write(tcpString);
+			outputStream.newLine();
+			outputStream.flush();
+			
 			System.out.println("write in Buffer:" + tcpString);
 		}
 		catch(Exception exception)
@@ -97,6 +124,7 @@ public class TCPConnectionServer extends Connection
 		// TODO Auto-generated method stub
 		try
 		{
+			System.out.println("Close Connection!");
 			this.serverSocket.close();
 		}
 		catch (IOException exception)

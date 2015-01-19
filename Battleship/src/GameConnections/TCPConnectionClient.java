@@ -1,27 +1,40 @@
 package GameConnections;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+//import org.apache.log4j.Logger;
 
 import GameConnections.CommandBuilder.CommandConverter;
 import GameUtilities.Command;
 
 public class TCPConnectionClient extends Connection
 {
+	//private static Logger logger = Logger.getLogger(Connection.class);
+	
 	BufferedReader inputReader;
-	DataOutputStream outputStream;
+	//DataOutputStream outputStream;
+	BufferedWriter outputStream;
 	Socket clientSocket;
 	CommandConverter convert;
 	
 	public TCPConnectionClient(int port, String ipAdress) throws UnknownHostException, IOException
 	{
 		this.clientSocket = new Socket(ipAdress, port);
-		this.outputStream = new DataOutputStream(clientSocket.getOutputStream());
+		System.out.println("Just connected to " + clientSocket.getRemoteSocketAddress());
+		//logger.debug("DEBUG: Hallo");
+		//this.outputStream = new DataOutputStream(clientSocket.getOutputStream());
+		this.outputStream = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 		this.inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		
+		//BufferedWriter out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+       // BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		
 		convert = new CommandConverter();
 		//xxxxxxx
@@ -39,16 +52,21 @@ public class TCPConnectionClient extends Connection
 	private String recieveStream()
 	{
 		String inputString = "";
-		try {
-			inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		try 
 		{
-			System.out.println("try to receive");
+			//System.out.println("try to receive... press enter");
+//			BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+//			System.out.println("Read message from server press enter");
+//			inFromUser.readLine();
+			System.out.println("Wait for Server...");
 			inputString = inputReader.readLine(); 
+			System.out.println("after readLine()");
 		}
 		catch(Exception exception)
 		{
@@ -61,23 +79,31 @@ public class TCPConnectionClient extends Connection
 	@Override
 	public void sendCommand(Command command)
 	{
-		String tcpString = convert.convertToTCPString(command);
-		tcpString = "initialString:FromClient";
-	
+		String tcpString;
+		if (command == null) {
+			//Send keep alive
+			tcpString = "1/Keep alive!/KEEP_ALIVE";
+		} else {
+			tcpString = convert.convertToTCPString(command);
+			tcpString = "1/Fuck you too!/TEST_FROM_CLIENT";
+		}
 		sendStream(tcpString);
 	}
 
 	private void sendStream(String tcpString)
 	{
-		try {
-			outputStream = new DataOutputStream(clientSocket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			outputStream = new DataOutputStream(clientSocket.getOutputStream());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		try 
 		{
-			outputStream.writeBytes(tcpString);
+			//outputStream.writeBytes(tcpString);
+			outputStream.write(tcpString);
+			outputStream.newLine();
+			outputStream.flush();
 		}
 		catch(Exception exception)
 		{
@@ -92,6 +118,7 @@ public class TCPConnectionClient extends Connection
 		// TODO Auto-generated method stub
 		try
 		{
+			System.out.println("Close Connection!");
 			this.clientSocket.close();
 		}
 		catch (IOException exception)

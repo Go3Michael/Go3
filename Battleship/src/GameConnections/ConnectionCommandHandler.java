@@ -57,26 +57,40 @@ public class ConnectionCommandHandler implements Runnable
 		ConnectionLogic connectionLogic = new ConnectionLogic(this.connection);
 		
 		abortConnection = false;
-		
+		System.out.println("Thread begin");
 		do
 		{
 			
-			if(GlobalGameData.isMyTurn())
-			{
+//			if(GlobalGameData.isMyTurn())
+//			{
+//			System.out.println("before send...");
 				this.commandSend = getNextCommandFromDataBox();
-				connectionLogic.sendCommandToPlayer(this.commandSend);
-				GlobalGameData.setIsMyTurn(false);
-			}
-			else
-			{
+				if (this.commandSend != null) {
+					connectionLogic.sendCommandToPlayer(this.commandSend);
+				} else {
+					System.out.println("Nothing to send...");
+					connectionLogic.sendCommandToPlayer(null);
+				}
+//				GlobalGameData.setIsMyTurn(false);
+//			}
+//			else
+//			{
+				
+//				System.out.println("before recieve...");
+				
 				this.commandRecieve = connectionLogic.getCommandFromPlayer();
 				sendCommandToDataBox(commandRecieve);
-				GlobalGameData.setIsMyTurn(true);
-			}
+//				GlobalGameData.setIsMyTurn(true);
+//			}
 		
-			wait(300);
+			//System.out.println("\n Ich bin schon einmal durch!!!");
+			wait(500);
+//			System.out.println("abortConnection: " + abortConnection);
+			
 		}
 		while(!abortConnection);
+		
+		System.out.println("Thread end");
 		
 		connectionLogic.closeConnection();
 		
