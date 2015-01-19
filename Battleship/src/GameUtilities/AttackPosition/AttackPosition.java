@@ -23,6 +23,6 @@ public class AttackPosition
 	
 	public String toString()
 	{
-		return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
+		return "-" + Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
 	}
 }
