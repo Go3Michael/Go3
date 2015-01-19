@@ -20,7 +20,7 @@ public class TCPConnectionClient extends Connection
 	
 	BufferedReader inputReader;
 	//DataOutputStream outputStream;
-	BufferedWriter outputStream;
+	DataOutputStream outputStream;
 	Socket clientSocket;
 	CommandConverter convert;
 	
@@ -30,7 +30,7 @@ public class TCPConnectionClient extends Connection
 		System.out.println("Just connected to " + clientSocket.getRemoteSocketAddress());
 		//logger.debug("DEBUG: Hallo");
 		//this.outputStream = new DataOutputStream(clientSocket.getOutputStream());
-		this.outputStream = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+		this.outputStream = new DataOutputStream(clientSocket.getOutputStream());;
 		this.inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		
 		//BufferedWriter out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
@@ -65,7 +65,7 @@ public class TCPConnectionClient extends Connection
 //			System.out.println("Read message from server press enter");
 //			inFromUser.readLine();
 			System.out.println("Wait for Server...");
-			inputString = inputReader.readLine(); 
+			//inputString = inputReader.readLine(); 
 			System.out.println("after readLine()");
 		}
 		catch(Exception exception)
@@ -101,9 +101,9 @@ public class TCPConnectionClient extends Connection
 		try 
 		{
 			//outputStream.writeBytes(tcpString);
-			outputStream.write(tcpString);
-			outputStream.newLine();
-			outputStream.flush();
+			outputStream.writeBytes(tcpString);
+			//outputStream.newLine();
+			//outputStream.flush();
 		}
 		catch(Exception exception)
 		{

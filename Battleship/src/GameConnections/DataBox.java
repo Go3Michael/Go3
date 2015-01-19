@@ -19,6 +19,7 @@ public class DataBox
 		{
 			try
 			{
+				System.out.println("wait access");
 				Thread.sleep((int)(Math.random()*1000));
 			}
 			catch(Exception e)
@@ -43,6 +44,7 @@ public class DataBox
 		{
 			try
 			{
+				System.out.println("wait access");
 				Thread.sleep((int)(Math.random()*1000));
 			}
 			catch(Exception e)

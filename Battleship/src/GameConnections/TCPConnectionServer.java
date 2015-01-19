@@ -17,7 +17,7 @@ public class TCPConnectionServer extends Connection
 {
 	BufferedReader inputReader;
 	//DataOutputStream outputStream;
-	BufferedWriter outputStream;
+	DataOutputStream outputStream;
 
 	
 	ServerSocket serverSocket;
@@ -36,7 +36,7 @@ public class TCPConnectionServer extends Connection
 		inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		//outputStream = new DataOutputStream(connectionSocket.getOutputStream());
 		
-		outputStream = new BufferedWriter(new OutputStreamWriter(connectionSocket.getOutputStream()));
+		outputStream = new DataOutputStream(connectionSocket.getOutputStream());
 		
 		convert = new CommandConverter();
 	}
@@ -106,9 +106,9 @@ public class TCPConnectionServer extends Connection
 //			System.out.println("Press Enter to send message to client");
 //			inFromUser.readLine();
 			//outputStream.writeBytes(tcpString);
-			outputStream.write(tcpString);
-			outputStream.newLine();
-			outputStream.flush();
+			outputStream.writeBytes(tcpString);
+			//outputStream.
+			//outputStream.flush();
 			
 			System.out.println("write in Buffer:" + tcpString);
 		}

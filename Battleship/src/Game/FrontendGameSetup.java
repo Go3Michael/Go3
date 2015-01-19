@@ -24,6 +24,7 @@ public class FrontendGameSetup
 	
 	private void createTestObjectField()
 	{
+		System.out.println("Field automatic init done");
 		Ship ship = new Ship(new ShipPosition(new Point(5,5),"vertical"), ShipType.AIRCARRER, 1);
 		fieldToSet.setShipOnField(ship);
 		ship = new Ship(new ShipPosition(new Point(3,3),"vertical"), ShipType.DESTROYER, 2);

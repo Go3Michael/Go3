@@ -5,6 +5,7 @@ import GameUtilities.Command;
 
 public class ConnectionCommandHandler implements Runnable 
 {
+	private ConnectionLogic connectionLogic;
 	private Command commandSend;
 	private Command commandRecieve;
 	private Connection connection = null;
@@ -13,6 +14,7 @@ public class ConnectionCommandHandler implements Runnable
 	public ConnectionCommandHandler() 
 	{
 		this.connection = new LocalConnection();
+		
 	}
 	
 	//Constructor Server Connection
@@ -23,6 +25,7 @@ public class ConnectionCommandHandler implements Runnable
 		try
 		{
 			this.connection = new TCPConnectionServer(port);
+			this.connectionLogic = new ConnectionLogic(connection);
 		}
 		catch(Exception exception)
 		{
@@ -38,6 +41,7 @@ public class ConnectionCommandHandler implements Runnable
 		try
 		{
 			this.connection = new TCPConnectionClient(port, ipAdress);
+			this.connectionLogic = new ConnectionLogic(connection);
 		}
 		catch(Exception exception)
 		{
@@ -54,8 +58,6 @@ public class ConnectionCommandHandler implements Runnable
 	@Override
 	public void run() 
 	{
-		ConnectionLogic connectionLogic = new ConnectionLogic(this.connection);
-		
 		abortConnection = false;
 		System.out.println("Thread begin");
 		do
@@ -114,6 +116,7 @@ public class ConnectionCommandHandler implements Runnable
 		try
 		{
 			Thread.sleep(ms);
+			
 		}
 		catch(Exception e)
 		{

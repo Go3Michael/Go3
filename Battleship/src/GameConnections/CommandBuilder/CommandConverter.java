@@ -36,15 +36,16 @@ public class CommandConverter
 	
 	public Command convertToGameCommand(String commandString)
 	{
-		String[] segments = commandString.split("/");
-		
-		int commandNr = Integer.parseInt(segments[0]);
-		Object commandData = segments[1];
-		String commandType = segments[2];
-		
-		Command convertCommand = new Command(commandNr, commandData, commandType);
-		
-		return convertCommand;
+//		String[] segments = commandString.split("/");
+//		
+//		int commandNr = Integer.parseInt(segments[0]);
+//		Object commandData = segments[1];
+//		String commandType = segments[2];
+//		
+//		Command convertCommand = new Command(commandNr, commandData, commandType);
+//		
+//		return convertCommand;
+		return null;
 	}
 	
 }
