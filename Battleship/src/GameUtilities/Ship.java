@@ -33,7 +33,23 @@ public class Ship
 	
 	public String toTransferString()
 	{
-		return "-" + Integer.toString(number) + ";" + shipType.toString() + ";" + shipPosition.toString() + ";" + align ;
+		String type = "";
+		switch (this.shipType) 
+		{
+			case AIRCARRIER:
+				type = "AIRCARRIER";
+				break;
+			case DESTROYER:
+				type = "DESTROYER";
+				break;
+			case YELLOW_SUBMARINE:
+				type = "YELLOW_SUBMARINE";
+				break;
+			default:
+				break;
+		}
+
+		return "-" + Integer.toString(number) + "," + type + "," + shipPosition.toString() + "," + align ;
 	}
 
 	public boolean isAlive()

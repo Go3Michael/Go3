@@ -1,6 +1,13 @@
 package GameConnections.CommandBuilder;
 
+import java.awt.Point;
+
 import GameUtilities.Command;
+import GameUtilities.Ship;
+import GameUtilities.ShipPosition;
+import GameUtilities.ShipType;
+import GameUtilities.AttackPosition.AttackPosition;
+import GameUtilities.Field.Field;
 
 public class CommandConverter 
 {
@@ -12,40 +19,88 @@ public class CommandConverter
 	
 	public String convertToTCPString(Command command)
 	{
-//		StringBuffer convertString.append(String.valueOf(command.getNummber()));
-//		convertString += String.valueOf(command.getCommandData());
-//		convertString = command.getType();
-//		
-//		return convertString;
-		
-		//String debugString = String.format(String.valueOf(command.getNummber()) + ";" + command.getCommandData().toString() + ";" + command.getType());
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("");
-		sb.append(5);
-		sb.append("/");
-		String strI = sb.toString();
-		
-		//String strI = Integer.toString(command.getNummber());
-		
-//		StringBuffer convertString = null;
-//		convertString.append(String.valueOf(command.getNummber()));
-		
-		return strI;
+		return command.toString();
 	}
 	
 	public Command convertToGameCommand(String commandString)
 	{
-//		String[] segments = commandString.split("/");
-//		
-//		int commandNr = Integer.parseInt(segments[0]);
-//		Object commandData = segments[1];
-//		String commandType = segments[2];
-//		
-//		Command convertCommand = new Command(commandNr, commandData, commandType);
-//		
-//		return convertCommand;
-		return null;
+		String[] segments = commandString.split(";");
+		
+		int commandNr = Integer.parseInt(segments[0]);
+		String commandType = segments[1];
+		
+		Object commandData = null;
+		
+		switch(commandType) {
+			case "INIT_FIELD":
+				commandData = parseField(segments[2]);
+				break;
+			case "ATTAC_COMMAND":
+				commandData = parseAttackPosition(segments[2]);
+				break;
+			default: 
+				break;
+		}
+		System.out.println("");
+		
+		Command convertCommand = new Command(commandNr, commandData, commandType);
+		return convertCommand;
 	}
 	
+	private AttackPosition parseAttackPosition(String string)
+	{
+		String[] xyPositions = string.split(",");
+		Point attackedPoint = new Point(Integer.parseInt(xyPositions[0]), Integer.parseInt(xyPositions[1]));
+		AttackPosition transmittedAttack = new AttackPosition(attackedPoint);
+		
+		return transmittedAttack;
+	}
+	
+	private Field parseField(String string)
+	{
+		Field transmittedField = new Field();
+		
+		String[] segments = string.split("-");
+		
+//		for (String s : segments) {
+//		      System.out.println(s);
+//		}
+		
+		for (String shipString : segments) {
+		      transmittedField.setShipOnField(parseShip(shipString));
+		}
+		
+		return transmittedField;
+	}
+	
+	private Ship parseShip(String string)
+	{
+		String[] segments = string.split(",");
+		
+		int shipNumber = Integer.parseInt(segments[0]);
+		
+		ShipType shipType = ShipType.AIRCARRIER;
+		switch(segments[1]) 
+		{
+			case "AIRCARRIER":
+				shipType = ShipType.AIRCARRIER;
+				break;
+			case "YELLOW_SUBMARINE":
+				shipType = ShipType.YELLOW_SUBMARINE;
+			case "DESTROYER":
+				shipType = ShipType.DESTROYER;
+			default:
+				break;
+		}
+			
+		Point position = new Point(Integer.parseInt(segments[2]), Integer.parseInt(segments[3]));
+		
+		String alignment = segments[4];
+		
+		ShipPosition shipPosition = new ShipPosition(position, alignment);
+		
+		Ship ship = new Ship(shipPosition, shipType, shipNumber);
+				
+		return ship;
+	}
 }
