@@ -14,10 +14,11 @@ public class CommandHandler
 		this.referenceLogic = refLogic;
 	}
 
-	public void sendInitField(Field field)
+	public void sendInitField(Command initCommand)
 	{
-		sendCommandToBox((Object)field, "INIT_FIELD");
-		receiveInitFieldFromEnemy();
+		DataBox.pushSendCommand(initCommand);
+//		sendCommandToBox((Object)field, "INIT_FIELD");
+//		receiveInitFieldFromEnemy();
 	}
 	
 	public void sendAttacCommand(Command attacCommand)

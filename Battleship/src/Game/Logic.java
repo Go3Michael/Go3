@@ -1,5 +1,7 @@
 package Game;
 
+import javax.naming.InitialContext;
+
 import GameConnections.TestEnemy;
 import GameUtilities.Command;
 import GameUtilities.Field.Field;
@@ -46,9 +48,15 @@ public class Logic
 				//HtestEnemy.sendFieldInitCommand();
 		//**********************************-------------------
 				
-		commandHandler.sendInitField(this.ownField);
+		commandHandler.sendInitField(buildInitCommand(this.ownField));
 		
 		waitForSettingsOtherPlayer();
+	}
+	private Command buildInitCommand(Field field)
+	{
+		Command initCommand = new Command(1, field, "INIT_FIELD");
+		
+		return initCommand;
 	}
 	
 	private void waitForSettingsOtherPlayer()
@@ -83,6 +91,11 @@ public class Logic
 		return enemyField.fireToPosition(attacCoordinates[0], attacCoordinates[1]);
 	}
 	
+	private Command buildAttacCommand(String fireMove)
+	{
+		return null;
+	}
+	
 	private void waitForEnemyMove()
 	{
 		
@@ -114,10 +127,7 @@ public class Logic
 		return attacCoordinates;
 	}
 	
-	private Command buildAttacCommand(String fireMove)
-	{
-		return null;
-	}
+	
 	
 	private void wait(int ms)
 	{
