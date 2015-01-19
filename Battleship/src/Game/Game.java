@@ -15,7 +15,7 @@ public class Game
 	    
 	    CpuPlayer cpuPlayer = new CpuPlayer();
 	    
-	    cpuPlayer.test();
+	    
 	    
 
 	}
