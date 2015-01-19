@@ -41,9 +41,10 @@ public class CommandConverter
 				commandData = parseAttackPosition(segments[2]);
 				break;
 			default: 
+				commandData = null;
 				break;
 		}
-		System.out.println("");
+//		System.out.println("");
 		
 		Command convertCommand = new Command(commandNr, commandData, commandType);
 		return convertCommand;

@@ -70,8 +70,8 @@ public class ConnectionCommandHandler implements Runnable
 				if (this.commandSend != null) {
 					connectionLogic.sendCommandToPlayer(this.commandSend);
 				} else {
-					System.out.println("Nothing to send...");
-					connectionLogic.sendCommandToPlayer(null);
+//					System.out.println("Nothing to send...");
+//					connectionLogic.sendCommandToPlayer(null);
 				}
 //				GlobalGameData.setIsMyTurn(false);
 //			}
@@ -84,7 +84,7 @@ public class ConnectionCommandHandler implements Runnable
 				sendCommandToDataBox(commandRecieve);
 //				GlobalGameData.setIsMyTurn(true);
 //			}
-		
+//		
 			//System.out.println("\n Ich bin schon einmal durch!!!");
 			wait(500);
 //			System.out.println("abortConnection: " + abortConnection);

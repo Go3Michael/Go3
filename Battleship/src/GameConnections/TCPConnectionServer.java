@@ -80,10 +80,10 @@ public class TCPConnectionServer extends Connection
 	@Override
 	public void sendCommand(Command command)
 	{
-		String tcpString;
+		String tcpString = "";
 		if (command == null) {
 			//Send keep alive
-			tcpString = "1/Keep alive!/KEEP_ALIVE";
+//			tcpString = "1;Keep alive!;KEEP_ALIVE";
 		} else {
 			tcpString = convert.convertToTCPString(command);
 			//tcpString = "1/Fuck you/TEST_FROM_SERVER";
