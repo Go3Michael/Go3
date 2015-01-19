@@ -33,6 +33,10 @@ public class CommandHandler
 	
 	
 	//**************receive Command********************
+	//TODO
+	//create AList of sendet commandos
+	//If commando was not done locate Command per number and send it again!!
+	
 	public void receiveInitFieldFromEnemy()
 	{
 		while(DataBox.isReceiveListEmpty())

@@ -1,16 +1,28 @@
 package GameConnections;
 
+
+import java.awt.Point;
+
+import Game.CpuPlayer;
 import GameUtilities.Command;
+import GameUtilities.Ship;
+import GameUtilities.ShipPosition;
+import GameUtilities.ShipType;
 
 public class LocalConnection extends Connection
 {
-	
+	private CpuPlayer cpuPlayer;
 
+	public LocalConnection() 
+	{
+		this.cpuPlayer = new CpuPlayer();
+	}
+	
 	@Override
 	public Command receiveCommand() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		
+		 return cpuPlayer.receiveCommand();		
 	}
 
 	@Override

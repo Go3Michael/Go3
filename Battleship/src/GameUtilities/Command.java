@@ -3,7 +3,7 @@ package GameUtilities;
 public class Command 
 {
 	private Object commandData;
-	private String commandType;
+	private String commandType; //INIT_FIELD, ATTAC_COMMAND
 	private int commandNr;
 	
 	public Command(int commandNr,Object data, String type)
@@ -21,6 +21,11 @@ public class Command
 	public String getType()
 	{
 		return this.commandType;
+	}
+	
+	public int getNummber()
+	{
+		return this.commandNr;
 	}
 	
 	public String toString()

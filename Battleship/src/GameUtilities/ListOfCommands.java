@@ -1,6 +1,6 @@
 package GameUtilities;
 
-public class ListOfMoves 
+public class ListOfCommands 
 {
 	
 

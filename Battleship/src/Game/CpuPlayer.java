@@ -1,22 +1,36 @@
 package Game;
 
+import java.awt.Point;
 import java.util.Random;
+import java.util.Vector;
 
-public class CpuPlayer 
+import GameUtilities.Command;
+import GameUtilities.Ship;
+import GameUtilities.ShipPosition;
+import GameUtilities.ShipType;
+import GameUtilities.Field.Field;
+
+public class CpuPlayer
 {
+    CpuPlayerLogic cpuPlayerLogic = new CpuPlayerLogic();
 
-
-    protected int cpuMove(){
-	int move = 0;
-	int hightPos = 0;
-	int widthPos = 0;
-	
-	Random posRandom  = new Random();
-	
-	
-	hightPos = posRandom.nextInt(10);
-	
-	
-	return move;
+    public CpuPlayer()
+    {
+    	
     }
+   
+    public Command receiveCommand()
+    {
+    	return cpuPlayerLogic.getNextCommand();
+    }
+    
+    public void sendCommand(Command command)
+    {
+    	cpuPlayerLogic.sendCommand(command);
+    }
+    
+	
+  
+	
+
 }

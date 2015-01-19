@@ -8,8 +8,7 @@ public class ConnectionLogic
 
 	public ConnectionLogic(Connection connection)
 	{
-		this.connection = connection;
-		
+		this.connection = connection;		
 	}
 	
 	public void sendCommandToPlayer(Command commandSend)
