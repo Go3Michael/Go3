@@ -86,7 +86,7 @@ public class TCPConnectionServer extends Connection
 			tcpString = "1/Keep alive!/KEEP_ALIVE";
 		} else {
 			tcpString = convert.convertToTCPString(command);
-			tcpString = "1/Fuck you/TEST_FROM_SERVER";
+			//tcpString = "1/Fuck you/TEST_FROM_SERVER";
 		}
 	
 		sendStream(tcpString);

@@ -30,7 +30,7 @@ public class Command
 	
 	public String toString()
 	{
-		return "-" + Integer.toString(this.commandNr) + ";" + this.commandType + ";" + this.commandData.toString();
+		return Integer.toString(this.commandNr) + ";" + this.commandType + ";" + this.commandData.toString();
 	}
 
 }

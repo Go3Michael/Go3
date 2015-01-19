@@ -19,11 +19,13 @@ public class CommandConverter
 	
 	public String convertToTCPString(Command command)
 	{
+		System.out.println("Converted String [" + command.toString() + "]");
 		return command.toString();
 	}
 	
 	public Command convertToGameCommand(String commandString)
 	{
+		System.out.println("Parse recieved String[" + commandString + "]");
 		String[] segments = commandString.split(";");
 		
 		int commandNr = Integer.parseInt(segments[0]);
