@@ -1,6 +1,7 @@
 package Game;
 
 import GameConnections.TestEnemy;
+import GameUtilities.Command;
 import GameUtilities.Field.Field;
 
 public class Logic 
@@ -10,6 +11,7 @@ public class Logic
 	private Field ownField;
 	private Field enemyField;
 	private boolean isMyTurn;
+	private boolean isHost;
 	
 	//********only for tests---------------------
 	private TestEnemy testEnemy = new TestEnemy();
@@ -57,14 +59,14 @@ public class Logic
 			System.out.println("wait for settings other player");
 		}
 		referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
-		startNextMove();
+		//startNextMove();
 	}
 	
 	private void startNextMove()
 	{
 		if(isMyTurn)
 		{
-			commandHandler.sendAttacCommand(referenceFrontend.getNextCommand());
+			fireToFieldPosition(referenceFrontend.getNextCommand());
 			isMyTurn = false;
 		}
 		else
@@ -73,22 +75,50 @@ public class Logic
 		}
 	}
 	
+	private boolean fireToFieldPosition(String fireMove)
+	{
+		int[] attacCoordinates = buildCoordinatesByString(fireMove);
+		
+		commandHandler.sendAttacCommand(buildAttacCommand(fireMove));
+		return enemyField.fireToPosition(attacCoordinates[0], attacCoordinates[1]);
+	}
+	
 	private void waitForEnemyMove()
 	{
 		
 	}
 	
-	public boolean isMoveValid()
+	public boolean isAttacMoveValid(String nextMove)
 	{
-		//todo implement Valid Check
-		return true;
-	}
+		int[] attacCoordinates = buildCoordinatesByString(nextMove);
+ 		
+ 		return enemyField.IsValidAttacPosition(attacCoordinates[0], attacCoordinates[1]);
+ 	}
+
+	
+	
+	
+	
 	
 	public void setFrontendReference(Frontend refFrontend)
 	{
 		this.referenceFrontend = refFrontend;
 	}
 
+	private int[] buildCoordinatesByString(String nextMove) 
+	{
+		int[] attacCoordinates = new int[2];
+		String[] coordinatesAsString = nextMove.split(",");
+ 		attacCoordinates[0] = Integer.parseInt(coordinatesAsString[0]);
+ 		attacCoordinates[1] = Integer.parseInt(coordinatesAsString[1]);
+		return attacCoordinates;
+	}
+	
+	private Command buildAttacCommand(String fireMove)
+	{
+		return null;
+	}
+	
 	private void wait(int ms)
 	{
 		try

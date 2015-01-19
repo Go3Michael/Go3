@@ -20,15 +20,16 @@ public class CommandHandler
 		receiveInitFieldFromEnemy();
 	}
 	
-	public void sendAttacCommand(String attacCommand)
+	public void sendAttacCommand(Command attacCommand)
 	{
-		sendCommandToBox(attacCommand, "ATTAC_COMMAND");
+		DataBox.pushSendCommand(attacCommand);
+//		sendCommandToBox(attacCommand, "ATTAC_COMMAND");
 	}
 
 	private void sendCommandToBox(Object commandData, String commandType) 
 	{
-		Command command = new Command(getNewCommandNumber(), commandData, commandType);		
-		DataBox.pushSendCommand(command);
+//		Command command = new Command(getNewCommandNumber(), commandData, commandType);		
+//		DataBox.pushSendCommand(command);
 	}
 	
 	
@@ -42,9 +43,9 @@ public class CommandHandler
 		while(DataBox.isReceiveListEmpty())
 		{
 			//Send Frontend Wait State
+			System.out.println("Wait for receive Data Box --- Command Handler---");
 			wait(300);
-		}
-		
+		}		
 		receiveCommandFromDataBox();
 	}
 	
@@ -56,6 +57,8 @@ public class CommandHandler
 		{
 			case "INIT_FIELD":
 				setEnemyFieldInLogicByCommand(command);
+			case "ATTAC_FIELD":
+				
 			break;
 		}
 	}
@@ -69,6 +72,7 @@ public class CommandHandler
 		else
 		{
 			//Send Error Message to Frontend!!!
+			System.out.println("Error in EnemyField ---Command Handler--");
 		}
 	}
 	

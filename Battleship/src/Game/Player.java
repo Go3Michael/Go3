@@ -2,7 +2,7 @@ package Game;
 
 import GameUtilities.Field.Field;
 
-public class Player 
+public class Player //Player not needed
 {
 	
 	private Logic logic;
@@ -24,9 +24,9 @@ public class Player
 		logic.setFrontendReference(refFrontend);
 	}
 	
-	public boolean askLogikIsMoveValid()
-	{
-		return logic.isMoveValid();
-	}
-	
+//	public boolean askLogikIsMoveValid()
+//	{
+//		return logic.isAttacMoveValid();
+//	}
+//	
 }

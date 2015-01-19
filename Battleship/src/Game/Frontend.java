@@ -223,9 +223,9 @@ public class Frontend
 		return frontendGame.getNextMove();
 	}
 	
-	public boolean askLogikIsMoveValid()
+	public boolean askLogikIsAttacMoveValid(String nextMove)
 	{
-		return logic.isMoveValid();
+		return logic.isAttacMoveValid(nextMove);
 				//player.askLogikIsMoveValid();		
 	}
 }

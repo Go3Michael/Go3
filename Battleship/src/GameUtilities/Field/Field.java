@@ -66,6 +66,35 @@ public class Field
 		return new Point(0,0);
 	}
 	
+	public boolean IsValidAttacPosition(int posX,int posY)
+	{
+		
+ 		if(this.fieldElemtens[posX][posY].getFieldState() == FieldState.UNKNOWN)
+ 		{
+ 			return true;
+ 		}
+ 		else
+ 		{
+ 			return false;
+ 		}
+		
+	}
+	
+	public boolean fireToPosition(int posX, int posY)
+	{
+		if(fieldElemtens[posX][posY].isTaken())
+		{
+			fieldElemtens[posX][posY].setFieldState(FieldState.STRIKE_SHIP);
+			return true;
+		}
+		else
+		{
+			fieldElemtens[posX][posY].setFieldState(FieldState.STRIKE_WATER);
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public String toString()
 	{

@@ -15,11 +15,12 @@ public class FrontendGame
 	{
 		String nextMove = readCommandInputFromConsole() ;
 		
-		while(!referenceFrontend.askLogikIsMoveValid())
+		while(!referenceFrontend.askLogikIsAttacMoveValid(nextMove))
 		{
 			readCommandInputFromConsole();
 		}
-		return "";
+		
+		return nextMove;
 	}
 	
 	private String readCommandInputFromConsole()
