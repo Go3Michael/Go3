@@ -36,8 +36,8 @@ public class LocalConnection extends Connection
 	@Override
 	public void sendCommand(Command command) 
 	{
-		// TODO Auto-generated method stub
-		
+		System.out.println("in local connection send");
+		cpuPlayer.sendCommand(command);
 	}
 
 	@Override

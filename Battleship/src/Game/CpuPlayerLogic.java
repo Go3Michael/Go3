@@ -6,6 +6,7 @@ import GameUtilities.Command;
 import GameUtilities.Ship;
 import GameUtilities.ShipPosition;
 import GameUtilities.ShipType;
+import GameUtilities.AttackPosition.AttackPosition;
 import GameUtilities.Field.Field;
 
 public class CpuPlayerLogic 
@@ -26,6 +27,12 @@ public class CpuPlayerLogic
 	
 	public void sendCommand(Command command)
 	{
+		System.out.println("command arrived in Player");
+		if(command == null)
+		{
+			System.out.println("send command Cpu PlayerLogic null objectCPU");
+		}
+		
 		if(isCommandInitField(command))
 		{
 			setEnemyField(command);
@@ -33,8 +40,19 @@ public class CpuPlayerLogic
 		}
 		else if(isCommandAttacCommand(command))
 		{
-			
+			int points[] = getCoordinatesfromAttacCommand(command);
+			ownField.fireToPosition(points[0], points[1]);
 		}
+	}
+
+	private int[] getCoordinatesfromAttacCommand(Command command) 
+	{
+		Point point = (Point)command.getCommandData();
+		int pointCoordinates[] = new int[2];
+		pointCoordinates[0] = point.x;
+		pointCoordinates[1] = point.y;
+		
+		return pointCoordinates;
 	}
 
 	private boolean isCommandInitField(Command command)

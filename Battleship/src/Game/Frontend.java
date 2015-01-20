@@ -62,7 +62,7 @@ public class Frontend
 				return true;
 				
 			case "CPU":
-				
+				createCpuPlayerConnection();
 				return true;
 				
 			default:				
@@ -172,6 +172,18 @@ public class Frontend
 		return true;
 	}
 
+	private boolean createCpuPlayerConnection()
+	{
+		System.out.println("Cpu player created");
+		
+		connectionCommandHandler = new Thread(new ConnectionCommandHandler());
+		connectionCommandHandler.start();
+		executeGameSetupMenue();
+		
+		System.out.println("cpu player game executed");
+		return true;
+	}
+	
 	private void startConnection(String connectionType)
 	{
 		
