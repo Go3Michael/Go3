@@ -16,13 +16,9 @@ import GameUtilities.Command;
 public class TCPConnectionServer extends Connection
 {
 	BufferedReader inputReader;
-	//DataOutputStream outputStream;
-	DataOutputStream outputStream;
-
-	
+	BufferedWriter outputStream;
 	ServerSocket serverSocket;
 	Socket connectionSocket;
-	private boolean connectionAvailable = false;
 	
 	CommandConverter convert;
 	
@@ -32,20 +28,13 @@ public class TCPConnectionServer extends Connection
 		System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
 		
 		connectionSocket = serverSocket.accept();
-		connectionAvailable = true;
 		System.out.println("Just connected to " + connectionSocket.getRemoteSocketAddress());
 		
 		inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-		//outputStream = new DataOutputStream(connectionSocket.getOutputStream());
-		
-		outputStream = new DataOutputStream(connectionSocket.getOutputStream());
+
+		this.outputStream = new BufferedWriter(new OutputStreamWriter(connectionSocket.getOutputStream()));
 		
 		convert = new CommandConverter();
-	}
-	
-	public boolean isConnectionAvailable()
-	{
-		return this.connectionAvailable;
 	}
 
 	@Override
@@ -60,18 +49,9 @@ public class TCPConnectionServer extends Connection
 	private String recieveStream()
 	{
 		String inputString = "";
-//		try {
-//			//inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 		try 
 		{
-//			BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
-//			System.out.println("Read message from client press enter");
-//			System.out.println("try to receive");
-//			inFromUser.readLine();
 			System.out.println("Wait for Client...");
 			inputString = inputReader.readLine(); 
 			System.out.println("after readLine()");
@@ -89,33 +69,20 @@ public class TCPConnectionServer extends Connection
 	{
 		String tcpString = "";
 		if (command == null) {
-			//Send keep alive
-//			tcpString = "1;Keep alive!;KEEP_ALIVE";
-		} else {
-			tcpString = convert.convertToTCPString(command);
-			//tcpString = "1/Fuck you/TEST_FROM_SERVER";
+			//TODO
 		}
-	
+
+		tcpString = convert.convertToTCPString(command);
 		sendStream(tcpString);
 	}
 
 	private void sendStream(String tcpString)
 	{
-//		try {
-//			outputStream = new DataOutputStream(connectionSocket.getOutputStream());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		try 
 		{
-//			BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
-//			System.out.println("Press Enter to send message to client");
-//			inFromUser.readLine();
-			//outputStream.writeBytes(tcpString);
-			outputStream.writeBytes(tcpString);
-			//outputStream.
-			//outputStream.flush();
+			outputStream.write(tcpString);
+			outputStream.newLine();
+			outputStream.flush();
 			
 			System.out.println("write in Buffer:" + tcpString);
 		}
@@ -138,32 +105,13 @@ public class TCPConnectionServer extends Connection
 		{
 			// TODO Auto-generated catch block
 			exception.printStackTrace();
-		}
-		
+		}	
 	}
-	
-	
-		
+
+	@Override
+	public boolean isConnectionAvailable()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}	
 }
-
-
-//public void tcpServer() throws Exception      
-//{ 
-//	String clientSentence;          
-//	String capitalizedSentence; 
-//	ServerSocket welcomeSocket = new ServerSocket(8010); 
-//	
-//	while(true)          
-//	{  
-//		Socket connectionSocket = welcomeSocket.accept();
-//		BufferedReader inFromClient =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-//		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-//		
-//		clientSentence = inFromClient.readLine(); 
-//		System.out.println("Received: " + clientSentence); 
-//		capitalizedSentence = clientSentence.toUpperCase() + '\n'; 
-//		outToClient.writeBytes(capitalizedSentence);   
-//		Thread.sleep(100);
-//		}       
-//	} 
-//}
