@@ -19,7 +19,7 @@ public class DataBox
 		{
 			try
 			{
-				System.out.println("wait access");
+				System.out.println("wait send access");
 				Thread.sleep((int)(Math.random()*1000));
 			}
 			catch(Exception e)
@@ -44,7 +44,7 @@ public class DataBox
 		{
 			try
 			{
-				System.out.println("wait access");
+				System.out.println("wait receive access");
 				Thread.sleep((int)(Math.random()*1000));
 			}
 			catch(Exception e)
@@ -60,7 +60,7 @@ public class DataBox
 	
 	private static void freeAccessReceiveCommands()
 	{
-		accessForReceiveCommands = false;
+		accessForReceiveCommands = true;
 	}
 	
 	public static boolean isReceiveListEmpty()
@@ -135,6 +135,7 @@ public class DataBox
 	public static void pushReceiveCommand(Command command)
 	{
 		getAccessReceiveCommands();
+		
 		receiveCommands.add(command);
 		freeAccessReceiveCommands();
 	}

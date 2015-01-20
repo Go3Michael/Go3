@@ -19,7 +19,7 @@ public class CommandHandler
 		
 		DataBox.pushSendCommand(initCommand);
 //		sendCommandToBox((Object)field, "INIT_FIELD");
-//		receiveInitFieldFromEnemy();
+		receiveInitFieldFromEnemy();
 	}
 	
 	public void sendAttacCommand(Command attacCommand)
@@ -54,6 +54,7 @@ public class CommandHandler
 	public void receiveCommandFromDataBox()
 	{
 		Command command = DataBox.popReceiveCommand();
+		System.out.println("received from databox for Logic");
 		//check type of Commands
 		switch(command.getType())
 		{

@@ -7,7 +7,7 @@ public class ConnectionCommandHandler implements Runnable
 {
 	private ConnectionLogic connectionLogic;
 	private Command commandSend;
-	private Command commandRecieve;
+	private Command commandReceive;
 	private Connection connection = null;
 
 	private static boolean abortConnection = false; // static.. you can call it from everywhere
@@ -73,9 +73,11 @@ public class ConnectionCommandHandler implements Runnable
 			}
 			System.out.println("Thread --command to player:" + commandSend.toString());
 			connectionLogic.sendCommandToPlayer(commandSend);
+			wait(100);
 
-			this.commandRecieve = connectionLogic.getCommandFromPlayer();
-			sendCommandToDataBox(commandRecieve);
+			this.commandReceive = connectionLogic.getCommandFromPlayer();
+			System.out.println("Thread --command to DataBox:" + commandReceive.toString());
+			sendCommandToDataBox(commandReceive);
 			wait(500);
 		}
 		while (!abortConnection);

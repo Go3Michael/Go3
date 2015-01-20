@@ -23,6 +23,7 @@ public class CpuPlayerLogic
 	
 	public Command getNextCommand()
 	{
+		System.out.println("return Command from Cpu Logic: " + nextReturnCommand.toString());
 		return nextReturnCommand;
 	}
 	
