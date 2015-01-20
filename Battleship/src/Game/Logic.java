@@ -67,8 +67,8 @@ public class Logic
 			wait(300);
 			System.out.println("wait for settings other player");
 		}
-		referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
-		//startNextMove();
+//		referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
+		startNextMove();
 	}
 	
 	private void startNextMove()
@@ -104,6 +104,7 @@ public class Logic
 	
 	public boolean isAttacMoveValid(String nextMove)
 	{
+		System.out.println(nextMove);
 		int[] attacCoordinates = buildCoordinatesByString(nextMove);
  		
  		return enemyField.IsValidAttacPosition(attacCoordinates[0], attacCoordinates[1]);

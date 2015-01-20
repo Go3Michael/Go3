@@ -25,7 +25,7 @@ public class FrontendGame
 	
 	private String readCommandInputFromConsole()
 	{
-		System.out.println("Insert Command:");
+		System.out.println("Insert Command(x,y):");
 		return readStringFromConsole();
 	}
 	

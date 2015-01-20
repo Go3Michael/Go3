@@ -9,9 +9,27 @@ import GameUtilities.ShipPosition;
 public class Field 
 {
 	private Vector<Ship> shipsOnField = new Vector<Ship>();
-	private FieldElement[][] fieldElemtens = new FieldElement[10][10];
+	private FieldElement[][] fieldElemtens;
 	
 	//Array of FieldElements 10x10--??
+	
+	public Field()
+	{
+		fieldElemtens = new FieldElement[10][10];
+		initNewField();
+	}
+	
+	private void initNewField()
+	{
+		for(int i = 0; i<=9; i++)
+		{
+			for(int j = 0; j<=9; j++)
+			{
+				fieldElemtens[i][j] = new FieldElement();
+				fieldElemtens[i][j].setFieldState(FieldState.UNKNOWN); 
+			}
+		}
+	}
 	
 	public Vector<Ship> getListOfActiveShips()
 	{	
