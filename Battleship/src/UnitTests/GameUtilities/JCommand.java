@@ -1,13 +1,7 @@
 package UnitTests.GameUtilities;
-
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
-
 import java.awt.Point;
-
 import org.junit.Test;
-
 import GameUtilities.Command;
 import GameUtilities.Ship;
 import GameUtilities.ShipPosition;
@@ -27,8 +21,6 @@ public class JCommand
 	field.setShipOnField(ship);
 	Command command = new Command(1, field, "INIT_FIELD");
 	
-	
-    
 	Assert.assertEquals("1;INIT_FIELD;-1,AIRCARRIER,1,1,vertical", command.toString() );
     
     }
@@ -50,11 +42,7 @@ public class JCommand
     
     }
     
-    ///////////////////
-
     
-    
-
     @Test
     public void correctCommandOneAttac()
     {
