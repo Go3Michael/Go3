@@ -19,6 +19,14 @@ public class LocalConnection extends Connection
 	}
 	
 	@Override
+	public boolean isConnectionAvailable() 
+	{
+		
+		return true;
+	}
+
+	
+	@Override
 	public Command receiveCommand() 
 	{
 		
@@ -39,4 +47,5 @@ public class LocalConnection extends Connection
 		
 	}
 
+	
 }

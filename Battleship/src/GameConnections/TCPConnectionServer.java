@@ -22,6 +22,7 @@ public class TCPConnectionServer extends Connection
 	
 	ServerSocket serverSocket;
 	Socket connectionSocket;
+	private boolean connectionAvailable = false;
 	
 	CommandConverter convert;
 	
@@ -31,6 +32,7 @@ public class TCPConnectionServer extends Connection
 		System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
 		
 		connectionSocket = serverSocket.accept();
+		connectionAvailable = true;
 		System.out.println("Just connected to " + connectionSocket.getRemoteSocketAddress());
 		
 		inputReader =  new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
@@ -39,6 +41,11 @@ public class TCPConnectionServer extends Connection
 		outputStream = new DataOutputStream(connectionSocket.getOutputStream());
 		
 		convert = new CommandConverter();
+	}
+	
+	public boolean isConnectionAvailable()
+	{
+		return this.connectionAvailable;
 	}
 
 	@Override

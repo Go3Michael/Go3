@@ -28,4 +28,8 @@ public class ConnectionLogic
 		this.connection.close();
 	}
 	
+	public boolean isConnectionAvailable()
+	{
+		return connection.isConnectionAvailable();
+	}
 }

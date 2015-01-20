@@ -23,6 +23,7 @@ public class TCPConnectionClient extends Connection
 	DataOutputStream outputStream;
 	Socket clientSocket;
 	CommandConverter convert;
+	private boolean connectionAvailable = true;
 	
 	public TCPConnectionClient(int port, String ipAdress) throws UnknownHostException, IOException
 	{
@@ -39,6 +40,14 @@ public class TCPConnectionClient extends Connection
 		convert = new CommandConverter();
 		//xxxxxxx
 	}
+	
+	@Override
+	public boolean isConnectionAvailable() 
+	{
+		
+		return this.connectionAvailable;
+	}
+
 	
 	@Override
 	public Command receiveCommand() 
@@ -129,6 +138,7 @@ public class TCPConnectionClient extends Connection
 		
 	}
 
+	
 }
 
 //public void tcpClient() throws Exception  
