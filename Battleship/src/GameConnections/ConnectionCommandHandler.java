@@ -1,7 +1,11 @@
 package GameConnections;
 
+import java.awt.Point;
+
 import Game.GlobalGameData;
 import GameUtilities.Command;
+import GameUtilities.AttackPosition.AttackPosition;
+import GameUtilities.Field.Field;
 
 public class ConnectionCommandHandler implements Runnable 
 {
@@ -62,30 +66,30 @@ public class ConnectionCommandHandler implements Runnable
 		System.out.println("Thread begin");
 		do
 		{
+			if(connectionLogic.isConnectionAvailable())
+			{
 			
-//			if(GlobalGameData.isMyTurn())
-//			{
 //			System.out.println("before send...");
-				this.commandSend = getNextCommandFromDataBox();
-				if (this.commandSend != null) {
-					connectionLogic.sendCommandToPlayer(this.commandSend);
-				} else {
-//					System.out.println("Nothing to send...");
-//					connectionLogic.sendCommandToPlayer(null);
-				}
-//				GlobalGameData.setIsMyTurn(false);
-//			}
-//			else
-//			{
-				
-//				System.out.println("before recieve...");
-				
-				this.commandRecieve = connectionLogic.getCommandFromPlayer();
-				sendCommandToDataBox(commandRecieve);
-//				GlobalGameData.setIsMyTurn(true);
-//			}
-//		
-			//System.out.println("\n Ich bin schon einmal durch!!!");
+//				this.commandSend = getNextCommandFromDataBox();
+//				if (this.commandSend != null) {
+//					connectionLogic.sendCommandToPlayer(this.commandSend);
+//				} 
+//				else 
+//				{				
+//				
+//				this.commandRecieve = connectionLogic.getCommandFromPlayer();
+//				sendCommandToDataBox(commandRecieve);
+//				}	
+				 Point testPoint = new Point(1,2);
+				 AttackPosition testAttack = new AttackPosition(testPoint);
+				 Command testCommand = new Command(1, testAttack, "ATTAC_COMMAND");
+				 connectionLogic.sendCommandToPlayer(testCommand);
+				  
+				 this.commandRecieve = connectionLogic.getCommandFromPlayer();
+				 System.out.println(commandRecieve.toString());
+				 sendCommandToDataBox(commandRecieve);
+			}
+			
 			wait(500);
 //			System.out.println("abortConnection: " + abortConnection);
 			

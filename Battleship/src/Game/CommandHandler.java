@@ -16,6 +16,7 @@ public class CommandHandler
 
 	public void sendInitField(Command initCommand)
 	{
+		
 		DataBox.pushSendCommand(initCommand);
 //		sendCommandToBox((Object)field, "INIT_FIELD");
 //		receiveInitFieldFromEnemy();

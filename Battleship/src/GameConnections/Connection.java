@@ -9,6 +9,8 @@ public abstract class Connection
 	public abstract void sendCommand(Command command);
 	
 	public abstract void close();
+	
+	public abstract boolean isConnectionAvailable();
 }
 ////client
 //class TCPServer

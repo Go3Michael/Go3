@@ -155,10 +155,11 @@ public class Frontend
 		if(checkPortNumber(portNo) && checkIpAddress(ipAddress))
 		{
 			//this.player = new Player(false);
-			this.logic = new Logic(false);
+			this.logic = new Logic(false);	
 			connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo, ipAddress));
 			connectionCommandHandler.start();
 			executeGameSetupMenue();
+			
 			return true;
 		}
 		
