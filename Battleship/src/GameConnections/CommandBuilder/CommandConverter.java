@@ -19,8 +19,13 @@ public class CommandConverter
 	
 	public String convertToTCPString(Command command)
 	{
-		System.out.println("Converted String [" + command.toString() + "]");
-		return command.toString();
+		System.out.println("About to format the Field Command");
+		if (command == null) {
+			System.out.println("command is null!!!");
+		
+		}
+		String string = command.toString();
+		return string;
 	}
 	
 	public Command convertToGameCommand(String commandString)
@@ -44,7 +49,6 @@ public class CommandConverter
 				commandData = null;
 				break;
 		}
-//		System.out.println("");
 		
 		Command convertCommand = new Command(commandNr, commandData, commandType);
 		return convertCommand;
@@ -65,12 +69,9 @@ public class CommandConverter
 		
 		String[] segments = string.split("-");
 		
-//		for (String s : segments) {
-//		      System.out.println(s);
-//		}
-		
 		for (String shipString : segments) {
-		      transmittedField.setShipOnField(parseShip(shipString));
+			if (shipString.isEmpty()) continue;
+			transmittedField.setShipOnField(parseShip(shipString));
 		}
 		
 		return transmittedField;
