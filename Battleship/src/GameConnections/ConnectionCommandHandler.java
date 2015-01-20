@@ -5,7 +5,6 @@ import java.awt.Point;
 import Game.GlobalGameData;
 import GameUtilities.Command;
 import GameUtilities.AttackPosition.AttackPosition;
-import GameUtilities.Field.Field;
 
 public class ConnectionCommandHandler implements Runnable 
 {
@@ -13,6 +12,7 @@ public class ConnectionCommandHandler implements Runnable
 	private Command commandSend;
 	private Command commandRecieve;
 	private Connection connection = null;
+
 	private static boolean abortConnection = false; //static.. you can call it from everywhere
 	
 	public ConnectionCommandHandler() 
@@ -64,32 +64,35 @@ public class ConnectionCommandHandler implements Runnable
 	{
 		abortConnection = false;
 		System.out.println("Thread begin");
+//		Point testPoint = new Point(1,2);
+//		AttackPosition testAttack = new AttackPosition(testPoint);
+//		Command testCommand = new Command(1, testAttack, "ATTAC_COMMAND");
+//		
+		
 		do
-		{
-			if(connectionLogic.isConnectionAvailable())
-			{
-			
-//			System.out.println("before send...");
-//				this.commandSend = getNextCommandFromDataBox();
+		{	
+				this.commandSend = getNextCommandFromDataBox();
 //				if (this.commandSend != null) {
 //					connectionLogic.sendCommandToPlayer(this.commandSend);
-//				} 
-//				else 
-//				{				
-//				
-//				this.commandRecieve = connectionLogic.getCommandFromPlayer();
+//				} else {
+//					System.out.println("Nothing to send...");
+//					connectionLogic.sendCommandToPlayer(null);
+//				}
+//			connectionLogic.sendCommandToPlayer(testCommand);
+				connectionLogic.sendCommandToPlayer(this.commandSend);
+//				GlobalGameData.setIsMyTurn(false);
+//			}
+//			else
+//			{
+				
+//				System.out.println("before recieve...");
+				
+				this.commandRecieve = connectionLogic.getCommandFromPlayer();
 //				sendCommandToDataBox(commandRecieve);
-//				}	
-				 Point testPoint = new Point(1,2);
-				 AttackPosition testAttack = new AttackPosition(testPoint);
-				 Command testCommand = new Command(1, testAttack, "ATTAC_COMMAND");
-				 connectionLogic.sendCommandToPlayer(testCommand);
-				  
-				 this.commandRecieve = connectionLogic.getCommandFromPlayer();
-				 System.out.println(commandRecieve.toString());
-				 sendCommandToDataBox(commandRecieve);
-			}
-			
+//				GlobalGameData.setIsMyTurn(true);
+//			}
+//		
+			//System.out.println("\n Ich bin schon einmal durch!!!");
 			wait(500);
 //			System.out.println("abortConnection: " + abortConnection);
 			
