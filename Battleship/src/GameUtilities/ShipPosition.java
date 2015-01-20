@@ -34,7 +34,7 @@ public class ShipPosition
 	
 	public String toString()
 	{
-		return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
+		return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y) + "," + this.alignment;
 	}
 	
 	

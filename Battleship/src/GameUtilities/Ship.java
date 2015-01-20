@@ -49,7 +49,7 @@ public class Ship
 				break;
 		}
 
-		return "-" + Integer.toString(number) + "," + type + "," + shipPosition.toString() + "," + align ;
+		return "-" + Integer.toString(number) + "," + type + "," + shipPosition.toString();
 	}
 
 	public boolean isAlive()
