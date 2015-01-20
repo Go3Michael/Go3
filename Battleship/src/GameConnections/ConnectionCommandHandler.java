@@ -15,12 +15,13 @@ public class ConnectionCommandHandler implements Runnable
 	public ConnectionCommandHandler()
 	{
 		this.connection = new LocalConnection();
+		this.connectionLogic = new ConnectionLogic(connection);
 	}
 
 	// Constructor Server Connection
 	public ConnectionCommandHandler(int port)
 	{
-		GlobalGameData.setIsMyTurn(true);
+		//GlobalGameData.setIsMyTurn(true);
 
 		try
 		{
@@ -70,7 +71,7 @@ public class ConnectionCommandHandler implements Runnable
 			{
 				continue;
 			}
-
+			System.out.println("Thread --command to player:" + commandSend.toString());
 			connectionLogic.sendCommandToPlayer(commandSend);
 
 			this.commandRecieve = connectionLogic.getCommandFromPlayer();

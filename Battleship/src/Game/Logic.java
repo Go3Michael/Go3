@@ -52,6 +52,7 @@ public class Logic
 		
 		waitForSettingsOtherPlayer();
 	}
+	
 	private Command buildInitCommand(Field field)
 	{
 		Command initCommand = new Command(1, field, "INIT_FIELD");
@@ -108,9 +109,6 @@ public class Logic
  		return enemyField.IsValidAttacPosition(attacCoordinates[0], attacCoordinates[1]);
  	}
 
-	
-	
-	
 	
 	
 	public void setFrontendReference(Frontend refFrontend)

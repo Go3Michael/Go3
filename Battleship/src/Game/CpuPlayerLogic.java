@@ -14,6 +14,7 @@ public class CpuPlayerLogic
 
 	Field ownField = new Field();
 	Field enemyField = new Field();
+	Command nextReturnCommand;
 	
 	public CpuPlayerLogic()
 	{
@@ -22,12 +23,12 @@ public class CpuPlayerLogic
 	
 	public Command getNextCommand()
 	{
-		return null;
+		return nextReturnCommand;
 	}
 	
 	public void sendCommand(Command command)
 	{
-		System.out.println("command arrived in Player");
+		System.out.println("command arrived at CPU Player Logic");
 		if(command == null)
 		{
 			System.out.println("send command Cpu PlayerLogic null objectCPU");
@@ -37,14 +38,38 @@ public class CpuPlayerLogic
 		{
 			setEnemyField(command);
 			setShipsOnOwnField();
+			nextReturnCommand = buildFieldCommand();
 		}
 		else if(isCommandAttacCommand(command))
 		{
 			int points[] = getCoordinatesfromAttacCommand(command);
 			ownField.fireToPosition(points[0], points[1]);
+			nextReturnCommand = getAnswerCommand();
 		}
 	}
+	
+	private Command buildFieldCommand()
+	{
+		 Command fieldCommand = new Command(1, ownField, "INIT_FIELD");
+		 
+		return fieldCommand;
+				
+	}
 
+	private Command getAnswerCommand() 
+	{
+		Point point = enemyField.getRandomfreeFieldCoordinate();
+		
+		return null;
+	}
+
+	private Command buildAttacCommand(Point point)
+	{
+		Command attacCommand = new Command(1, new AttackPosition(point), "INIT_FIELD");
+		
+		return attacCommand;
+	}
+	
 	private int[] getCoordinatesfromAttacCommand(Command command) 
 	{
 		Point point = (Point)command.getCommandData();
@@ -96,4 +121,6 @@ public class CpuPlayerLogic
 		ownField.setShipOnField(ship2);
 		ownField.setShipOnField(ship3);
 	}
+	
+	
 }

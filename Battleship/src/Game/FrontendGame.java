@@ -32,6 +32,6 @@ public class FrontendGame
 	
 	private String readStringFromConsole()
 	{
-		return new Scanner( java.lang.System.in ).nextLine();
+		return new Scanner(java.lang.System.in).nextLine();
 	}
 }
