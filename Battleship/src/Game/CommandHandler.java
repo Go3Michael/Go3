@@ -2,6 +2,7 @@ package Game;
 
 import GameConnections.DataBox;
 import GameUtilities.Command;
+import GameUtilities.AttackPosition.AttackPosition;
 import GameUtilities.Field.Field;
 
 public class CommandHandler 
@@ -18,6 +19,7 @@ public class CommandHandler
 	{
 		
 		DataBox.pushSendCommand(initCommand);
+		System.out.println("pushInitToSendCommand");
 //		sendCommandToBox((Object)field, "INIT_FIELD");
 		receiveInitFieldFromEnemy();
 	}
@@ -26,6 +28,13 @@ public class CommandHandler
 	{
 		DataBox.pushSendCommand(attacCommand);
 //		sendCommandToBox(attacCommand, "ATTAC_COMMAND");
+		receiveAttacCommandFromEnemy();
+	}
+
+	private void receiveAttacCommandFromEnemy() 
+	{
+		receiveCommandFromDataBox();
+		
 	}
 
 	private void sendCommandToBox(Object commandData, String commandType) 
@@ -54,18 +63,33 @@ public class CommandHandler
 	public void receiveCommandFromDataBox()
 	{
 		Command command = DataBox.popReceiveCommand();
-		System.out.println("received from databox for Logic");
+		System.out.println("received from databox for Logic" + command.toString());
 		//check type of Commands
 		switch(command.getType())
 		{
 			case "INIT_FIELD":
 				setEnemyFieldInLogicByCommand(command);
-			case "ATTAC_FIELD":
-				
+				System.out.println("Income Init Field");
+				break;
+			case "ATTAC_COMMAND":
+				setAttacCommandInLogic(command);
+				System.out.println("Income attacCommand");
 			break;
 		}
 	}
 	
+	private void setAttacCommandInLogic(Command command) 
+	{
+		if(command.getCommandData() instanceof AttackPosition)
+		{
+			referenceLogic.setEnemyField((Field)command.getCommandData());
+		}
+		else
+		{
+			
+		}
+	}
+
 	private void setEnemyFieldInLogicByCommand(Command command)
 	{
 		if(command.getCommandData() instanceof Field)

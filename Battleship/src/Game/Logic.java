@@ -4,12 +4,14 @@ import javax.naming.InitialContext;
 
 import GameConnections.TestEnemy;
 import GameUtilities.Command;
+import GameUtilities.AttackPosition.AttackPosition;
 import GameUtilities.Field.Field;
 
 public class Logic 
 {
 	private Frontend referenceFrontend;
 	private CommandHandler commandHandler;
+	private Command currAttacCommand = null;
 	private Field ownField;
 	private Field enemyField;
 	private boolean isMyTurn;
@@ -32,6 +34,12 @@ public class Logic
 	public void setEnemyField(Field enemyField)
 	{
 		this.enemyField =  enemyField;
+	}
+	
+	public void setEnemyAttacCommand(AttackPosition attacPosition)//called from Command Handler
+	{
+		currAttacCommand = new Command(1, attacPosition, "ATTAC_COMMAND");	
+		startNextMove();
 	}
 
 	public void setInitField(Field ownInitField)
@@ -77,6 +85,7 @@ public class Logic
 		{
 			fireToFieldPosition(referenceFrontend.getNextCommand());
 			isMyTurn = false;
+			commandHandler.receiveCommandFromDataBox();
 		}
 		else
 		{
@@ -88,6 +97,7 @@ public class Logic
 	{
 		int[] attacCoordinates = buildCoordinatesByString(fireMove);
 		
+		System.out.println("Send Attac command to command Handler from logic");
 		commandHandler.sendAttacCommand(buildAttacCommand(fireMove));
 		return enemyField.fireToPosition(attacCoordinates[0], attacCoordinates[1]);
 	}

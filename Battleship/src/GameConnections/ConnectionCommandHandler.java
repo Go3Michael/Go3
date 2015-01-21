@@ -71,12 +71,12 @@ public class ConnectionCommandHandler implements Runnable
 			{
 				continue;
 			}
-			System.out.println("Thread --command to player:" + commandSend.toString());
+			System.out.println("---------Thread --command to player:" + commandSend.toString());
 			connectionLogic.sendCommandToPlayer(commandSend);
 			wait(100);
 
 			this.commandReceive = connectionLogic.getCommandFromPlayer();
-			System.out.println("Thread --command to DataBox:" + commandReceive.toString());
+			System.out.println("---------Thread --command to DataBox:" + commandReceive.toString());
 			sendCommandToDataBox(commandReceive);
 			wait(500);
 		}
