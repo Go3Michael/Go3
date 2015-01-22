@@ -55,10 +55,12 @@ public class Frontend
 		{
 			case "H":				
 				readHostSettings();
+				logic.setIsMyTurn(true);
 				return true;
 				
 			case "CL":
 				readClientSettings();
+				logic.setIsMyTurn(false);
 				return true;
 				
 			case "CPU":

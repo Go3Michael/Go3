@@ -78,7 +78,7 @@ public class Logic
 	}
     }
 
-    private void setIsMyTurn(boolean isMyTurn)
+    public void setIsMyTurn(boolean isMyTurn)
     {
 	this.isMyTurn = isMyTurn;
     }
@@ -95,7 +95,8 @@ public class Logic
     private Command buildAttacCommand(String fireMove)
     {
     	//TODO
-    	Point point = new Point(1,1);
+    	String segments[] = fireMove.split(",");
+    	Point point = new Point(Integer.parseInt(segments[0]),Integer.parseInt(segments[1]));
     	AttackPosition attackPos = new AttackPosition(point);
     	
     	Command command = new Command(1, attackPos, "ATTAC_COMMAND");
