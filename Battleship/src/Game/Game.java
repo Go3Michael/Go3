@@ -2,17 +2,28 @@ package Game;
 
 import GameConnections.ConnectionCommandHandler;
 
-public class Game 
+/**
+ * Game - Start Class
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
+public class Game
 {
-	
-	public static void main(String[] args) throws Exception 
-	{
-		Frontend frontend = new Frontend();
-		
-		frontend.callMenue();
- 
-	    //CpuPlayer cpuPlayer = new CpuPlayer();
+    /**
+     * Startpoint
+     * 
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception
+    {
+	Frontend frontend = new Frontend();
 
-	}
+	frontend.callMenue();
+
+	// CpuPlayer cpuPlayer = new CpuPlayer();
+
+    }
 
 }

@@ -9,6 +9,12 @@ import GameUtilities.Command;
 import GameUtilities.AttackPosition.AttackPosition;
 import GameUtilities.Field.Field;
 
+/**
+ * Contains the logic of the game
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
 public class Logic
 {
     private Frontend referenceFrontend;
@@ -25,24 +31,33 @@ public class Logic
     // *****************************************
 
     /********************** FUNCTION FOR FRONTEND ********************************/
-
+/**
+ * set the enemy field
+ * 
+ * @param enemyField
+ */
     public void setEnemyField(Field enemyField)
     {
 	this.enemyField = enemyField;
     }
 
+    /**
+     * set the initial field
+     * 
+     * @param ownInitField
+     */
     public void setInitField(Field ownInitField)
     {
 	this.ownField = ownInitField;
 	sendFieldToOtherPlayer();
     }
 
-  
-
-    
-
     /********************** FUNCTION FOR LOGIC ***********************************/
-
+/**
+ * Logic
+ * 
+ * @param isFirstPlayer
+ */
     public Logic(boolean isFirstPlayer)
     {
 	this.isMyTurn = isFirstPlayer;
@@ -58,13 +73,13 @@ public class Logic
 	// referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
 	startNextMove();
     }
-    
+
     private void startNextMove()
     {
 	if (isMyTurn)
 	{
 	    fireToFieldPosition(referenceFrontend.getNextCommand());
-//	    isMyTurn = false;
+	    // isMyTurn = false;
 	    setIsMyTurn(false);
 	    wait(1000);
 	    commandHandler.receiveCommandFromDataBox();
@@ -72,9 +87,9 @@ public class Logic
 	else
 	{
 	    // wait for enemy move
-		System.out.println("Wait for enemy move");
-		waitForEnemyMove();
-		setIsMyTurn(true);
+	    System.out.println("Wait for enemy move");
+	    waitForEnemyMove();
+	    setIsMyTurn(true);
 	}
     }
 
@@ -82,7 +97,7 @@ public class Logic
     {
 	this.isMyTurn = isMyTurn;
     }
-    
+
     private boolean fireToFieldPosition(String fireMove)
     {
 	int[] attacCoordinates = buildCoordinatesByString(fireMove);
@@ -94,26 +109,26 @@ public class Logic
 
     private Command buildAttacCommand(String fireMove)
     {
-    	//TODO
-    	String segments[] = fireMove.split(",");
-    	Point point = new Point(Integer.parseInt(segments[0]),Integer.parseInt(segments[1]));
-    	AttackPosition attackPos = new AttackPosition(point);
-    	
-    	Command command = new Command(1, attackPos, "ATTAC_COMMAND");
-    	return command;
+	// TODO
+	String segments[] = fireMove.split(",");
+	Point point = new Point(Integer.parseInt(segments[0]), Integer.parseInt(segments[1]));
+	AttackPosition attackPos = new AttackPosition(point);
+
+	Command command = new Command(1, attackPos, "ATTAC_COMMAND");
+	return command;
     }
 
     private void waitForEnemyMove()
     {
-    	//TODO
-//    	while (referenceFrontend.getNextCommand() == null)
-//    	{
-//    		
-//    	}
-    	
-    	fireToFieldPosition(referenceFrontend.getNextCommand());
-    	referenceFrontend.getNextCommand();
-    	
+	// TODO
+	// while (referenceFrontend.getNextCommand() == null)
+	// {
+	//
+	// }
+
+	fireToFieldPosition(referenceFrontend.getNextCommand());
+	referenceFrontend.getNextCommand();
+
     }
 
     public boolean isAttacMoveValid(String nextMove)
