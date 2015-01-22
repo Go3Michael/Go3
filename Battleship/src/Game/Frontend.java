@@ -48,17 +48,19 @@ public class Frontend
 		
 		return connectionType;
 	}
-		
+
 	private boolean createConnectionByInput(String connectionType) 
 	{
 		switch(connectionType)
 		{
 			case "H":				
 				readHostSettings();
+				//logic.setIsMyTurn(true);
 				return true;
 				
 			case "CL":
 				readClientSettings();
+				//logic.setIsMyTurn(false);
 				return true;
 				
 			case "CPU":

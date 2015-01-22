@@ -34,6 +34,7 @@ public class CommandHandler
 
 	private void receiveAttacCommandFromEnemy() 
 	{
+		System.out.println("receive command from Enemy");
 		receiveCommandFromDataBox();
 		
 	}
