@@ -80,6 +80,9 @@ public class Field
 		{
 			for(int j = 0; j<=9; j++)
 			{
+				if (fieldElemtens[i][j].getFieldState() == FieldState.STRIKE_SHIP) {
+					//TODO
+				}
 				if(fieldElemtens[i][j].getFieldState() == FieldState.UNKNOWN)
 				{
 					freePosition = new Point(i+1,j+1);
