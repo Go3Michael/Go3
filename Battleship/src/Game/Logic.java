@@ -1,5 +1,7 @@
 package Game;
 
+import java.awt.Point;
+
 import javax.naming.InitialContext;
 
 import GameConnections.TestEnemy;
@@ -62,12 +64,17 @@ public class Logic
 	if (isMyTurn)
 	{
 	    fireToFieldPosition(referenceFrontend.getNextCommand());
-	    isMyTurn = false;
+//	    isMyTurn = false;
+	    setIsMyTurn(false);
+	    wait(1000);
 	    commandHandler.receiveCommandFromDataBox();
 	}
 	else
 	{
 	    // wait for enemy move
+		System.out.println("Wait for enemy move");
+		waitForEnemyMove();
+		setIsMyTurn(true);
 	}
     }
 
@@ -87,12 +94,25 @@ public class Logic
 
     private Command buildAttacCommand(String fireMove)
     {
-	return null;
+    	//TODO
+    	Point point = new Point(1,1);
+    	AttackPosition attackPos = new AttackPosition(point);
+    	
+    	Command command = new Command(1, attackPos, "ATTAC_COMMAND");
+    	return command;
     }
 
     private void waitForEnemyMove()
     {
-
+    	//TODO
+//    	while (referenceFrontend.getNextCommand() == null)
+//    	{
+//    		
+//    	}
+    	
+    	fireToFieldPosition(referenceFrontend.getNextCommand());
+    	referenceFrontend.getNextCommand();
+    	
     }
 
     public boolean isAttacMoveValid(String nextMove)

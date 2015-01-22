@@ -20,8 +20,8 @@ public class FieldElement
 		this.fieldState = fieldState;
 	}
 	
-	
-	
-	
-
+	public void setTaken()
+	{
+		this.isTaken = true;
+	}
 }

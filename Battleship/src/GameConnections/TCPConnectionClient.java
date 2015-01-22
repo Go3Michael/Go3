@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 
 //import org.apache.log4j.Logger;
 
+
 import GameConnections.CommandBuilder.CommandConverter;
 import GameUtilities.Command;
 
@@ -41,7 +42,7 @@ public class TCPConnectionClient extends Connection
 	{
 		// TODO Auto-generated method stub
 		String inputString = recieveStream();
-		System.out.println(inputString);
+//		System.out.println(inputString);
 		return convert.convertToGameCommand(inputString);
 	}
 	
@@ -50,9 +51,9 @@ public class TCPConnectionClient extends Connection
 		String inputString = "";
 		try 
 		{
-			System.out.println("Wait for Server...");
+//			System.out.println("Wait for Server...");
 			inputString = inputReader.readLine(); 
-			System.out.println("after readLine()");
+//			System.out.println("after readLine()");
 		}
 		catch(Exception exception)
 		{
@@ -65,11 +66,12 @@ public class TCPConnectionClient extends Connection
 	@Override
 	public void sendCommand(Command command)
 	{
-		if (command == null) {
-			//TODO
-		}
 		String tcpString = "";
-		tcpString = convert.convertToTCPString(command);
+		if (command == null) {
+			tcpString = "99;";
+		} else {
+			tcpString = convert.convertToTCPString(command);
+		}
 
 		sendStream(tcpString);
 	}

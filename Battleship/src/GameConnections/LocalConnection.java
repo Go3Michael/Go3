@@ -36,8 +36,10 @@ public class LocalConnection extends Connection
 	@Override
 	public void sendCommand(Command command) 
 	{
-		System.out.println("in local connection send");
-		cpuPlayer.sendCommand(command);
+		if (command != null && command.isValid()) {
+			System.out.println("in local connection send");
+			cpuPlayer.sendCommand(command);
+		}
 	}
 
 	@Override

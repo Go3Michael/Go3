@@ -158,7 +158,9 @@ public class Frontend
 			this.logic = new Logic(false);	
 			connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo, ipAddress));
 			connectionCommandHandler.start();
+			logic.setFrontendReference(this);
 			executeGameSetupMenue();
+			
 			
 			return true;
 		}

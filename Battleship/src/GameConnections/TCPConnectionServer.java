@@ -42,7 +42,7 @@ public class TCPConnectionServer extends Connection
 	{
 		// TODO Auto-generated method stub
 		String inputString = recieveStream();
-		System.out.println(inputString);
+//		System.out.println(inputString);
 		return convert.convertToGameCommand(inputString);
 	}
 	
@@ -52,9 +52,9 @@ public class TCPConnectionServer extends Connection
 
 		try 
 		{
-			System.out.println("Wait for Client...");
+//			System.out.println("Wait for Client...");
 			inputString = inputReader.readLine(); 
-			System.out.println("after readLine()");
+//			System.out.println("after readLine()");
 		}
 		catch(Exception exception)
 		{
@@ -70,9 +70,12 @@ public class TCPConnectionServer extends Connection
 		String tcpString = "";
 		if (command == null) {
 			//TODO
+			tcpString = "99;";
+		} else {
+			tcpString = convert.convertToTCPString(command);
 		}
 
-		tcpString = convert.convertToTCPString(command);
+//		tcpString = convert.convertToTCPString(command);
 		sendStream(tcpString);
 	}
 
@@ -84,7 +87,7 @@ public class TCPConnectionServer extends Connection
 			outputStream.newLine();
 			outputStream.flush();
 			
-			System.out.println("write in Buffer:" + tcpString);
+//			System.out.println("write in Buffer:" + tcpString);
 		}
 		catch(Exception exception)
 		{

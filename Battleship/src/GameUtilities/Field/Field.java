@@ -56,14 +56,20 @@ public class Field
 		{
 			for(int j = 0; j<=9; j++)
 			{
-				if(fieldElemtens[i][j].isTaken() && fieldElemtens[i][j].getFieldState() == FieldState.STRIKE_SHIP)
-				{
-					return true;
+//				if(fieldElemtens[i][j].isTaken() && fieldElemtens[i][j].getFieldState() == FieldState.STRIKE_SHIP)
+//				{
+//					allSunk = true;
+//				}
+				if (fieldElemtens[i][j].isTaken()) {
+					if (fieldElemtens[i][j].getFieldState() != FieldState.STRIKE_SHIP) {
+						return false;
+					}
 				}
 			}
 		}
 		
-		return false;
+//		return false;
+		return true;
 	}
 	
 	public Point getRandomfreeFieldCoordinate()
@@ -98,6 +104,7 @@ public class Field
 		
 	}
 	
+	//TODO maybe second fireToPosition
 	public boolean fireToPosition(int posX, int posY)
 	{
 		if(fieldElemtens[posX][posY].isTaken())
@@ -124,5 +131,35 @@ public class Field
 		}
 		
 		return transferDataString;
+	}
+	
+	public void displayField()
+	{
+		System.out.println(" 1 2 3 4 5 6 7 8 9 10");
+		String printField = "_____________________";
+		for(int i = 0; i<=9; i++)
+		{
+			printField += "\n";
+			
+			for(int j = 0; j<=9; j++)
+			{
+				if (fieldElemtens[i][j].isTaken())
+				{
+					printField += "|S";
+				}
+				else if (fieldElemtens[i][j].getFieldState() == FieldState.STRIKE_SHIP) {
+					printField += "|X";
+				}
+				else if (fieldElemtens[i][j].getFieldState() == FieldState.STRIKE_WATER) {
+					printField += "|x";
+				}
+				else {
+					printField += "| ";
+				}
+			}
+			printField += "|";
+			printField += Integer.toString(i+1);
+		}
+		System.out.println(printField);
 	}
 }

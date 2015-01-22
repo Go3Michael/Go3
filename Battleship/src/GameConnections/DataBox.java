@@ -112,6 +112,12 @@ public class DataBox
 		
 		getAccessReceiveCommands(); 
 		
+//		while (receiveCommands.isEmpty())
+//		{
+//			//WAIT
+////			System.out.println("Wait for recieve command");
+//		}
+		
 		if(receiveCommands.isEmpty())
 		{
 			returnCommand =  null;

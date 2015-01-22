@@ -67,18 +67,21 @@ public class ConnectionCommandHandler implements Runnable
 		do
 		{
 			commandSend = getNextCommandFromDataBox();
-			if (commandSend == null)
-			{
-				continue;
-			}
-			System.out.println("---------Thread --command to player:" + commandSend.toString());
+//			if (commandSend == null)
+//			{
+//				continue;
+//			}
+//			System.out.println("---------Thread --command to player:" + commandSend.toString());
 			connectionLogic.sendCommandToPlayer(commandSend);
-			wait(100);
+			wait(1000);
 
 			this.commandReceive = connectionLogic.getCommandFromPlayer();
-			System.out.println("---------Thread --command to DataBox:" + commandReceive.toString());
-			sendCommandToDataBox(commandReceive);
-			wait(500);
+//			System.out.println("---------Thread --command to DataBox:" + commandReceive.toString());
+			if (this.commandReceive != null && this.commandReceive.isValid()) {
+				System.out.println("send recieved command to DataBox: " + this.commandReceive.toString());
+				sendCommandToDataBox(commandReceive);
+			}
+			wait(1000);
 		}
 		while (!abortConnection);
 

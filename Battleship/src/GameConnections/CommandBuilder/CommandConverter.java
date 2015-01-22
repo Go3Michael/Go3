@@ -19,10 +19,10 @@ public class CommandConverter
 
 	public String convertToTCPString(Command command)
 	{
-		System.out.println("About to format the Field Command");
+//		System.out.println("About to format the Field Command");
 		if (command == null)
 		{
-			System.out.println("command is null!!!");
+//			System.out.println("command is null!!!");
 
 		}
 		String string = command.toString();
@@ -31,10 +31,19 @@ public class CommandConverter
 
 	public Command convertToGameCommand(String commandString)
 	{
-		System.out.println("Parse recieved String[" + commandString + "]");
+//		System.out.println("Parse recieved String[" + commandString + "]");
 		String[] segments = commandString.split(";");
 
 		int commandNr = Integer.parseInt(segments[0]);
+		
+		if (commandNr == 99) {
+			Command dummyCommand = new Command(commandNr, null, "KEEP_ALIVE");
+			return dummyCommand;
+		} else {
+			
+			System.out.println("WAS ECHTES");
+		}
+		
 		String commandType = segments[1];
 
 		Object commandData = null;
@@ -95,8 +104,10 @@ public class CommandConverter
 				break;
 			case "YELLOW_SUBMARINE":
 				shipType = ShipType.YELLOW_SUBMARINE;
+				break;
 			case "DESTROYER":
 				shipType = ShipType.DESTROYER;
+				break;
 			default:
 				break;
 		}

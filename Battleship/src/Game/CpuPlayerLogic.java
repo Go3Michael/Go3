@@ -23,7 +23,7 @@ public class CpuPlayerLogic
 	
 	public Command getNextCommand()
 	{
-		System.out.println("return Command from Cpu Logic: " + nextReturnCommand.toString());
+//		System.out.println("return Command from Cpu Logic: " + nextReturnCommand.toString());
 		return nextReturnCommand;
 	}
 	
@@ -73,7 +73,8 @@ public class CpuPlayerLogic
 	
 	private int[] getCoordinatesfromAttacCommand(Command command) 
 	{
-		Point point = (Point)command.getCommandData();
+		AttackPosition attackPos = (AttackPosition)command.getCommandData();
+		Point point = attackPos.getXyPosition();
 		int pointCoordinates[] = new int[2];
 		pointCoordinates[0] = point.x;
 		pointCoordinates[1] = point.y;
@@ -121,6 +122,7 @@ public class CpuPlayerLogic
 		ownField.setShipOnField(ship1);
 		ownField.setShipOnField(ship2);
 		ownField.setShipOnField(ship3);
+		ownField.displayField();
 	}
 	
 	

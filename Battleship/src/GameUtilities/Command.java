@@ -28,6 +28,15 @@ public class Command
 		return this.commandNr;
 	}
 	
+	public boolean isValid()
+	{
+		if (this.commandNr == 99) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public String toString()
 	{
 		return Integer.toString(this.commandNr) + ";" + this.commandType + ";" + this.commandData.toString();

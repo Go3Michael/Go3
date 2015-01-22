@@ -26,6 +26,7 @@ public class CommandHandler
 	
 	public void sendAttacCommand(Command attacCommand)
 	{
+		System.out.println("send Attack Command");
 		DataBox.pushSendCommand(attacCommand);
 //		sendCommandToBox(attacCommand, "ATTAC_COMMAND");
 		receiveAttacCommandFromEnemy();
@@ -54,7 +55,7 @@ public class CommandHandler
 		while(DataBox.isReceiveListEmpty())
 		{
 			//Send Frontend Wait State
-			System.out.println("Wait for receive Data Box --- Command Handler---");
+//			System.out.println("Wait for receive Data Box --- Command Handler---");
 			wait(300);
 		}		
 		receiveCommandFromDataBox();
@@ -63,8 +64,14 @@ public class CommandHandler
 	public void receiveCommandFromDataBox()
 	{
 		Command command = DataBox.popReceiveCommand();
+		while (command == null) {
+			
+			//WAIT
+			wait(300);
+		}
 		System.out.println("received from databox for Logic" + command.toString());
 		//check type of Commands
+		
 		switch(command.getType())
 		{
 			case "INIT_FIELD":
@@ -82,7 +89,8 @@ public class CommandHandler
 	{
 		if(command.getCommandData() instanceof AttackPosition)
 		{
-			referenceLogic.setEnemyField((Field)command.getCommandData());
+//			referenceLogic.setEnemyField((Field)command.getCommandData());
+			referenceLogic.setEnemyAttacCommand((AttackPosition)command.getCommandData());
 		}
 		else
 		{
