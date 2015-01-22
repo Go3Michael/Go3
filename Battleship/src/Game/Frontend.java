@@ -6,243 +6,329 @@ import GameConnections.ConnectionCommandHandler;
 import GameConnections.DataBox;
 import GameUtilities.Field.Field;
 
-public class Frontend 
+/**
+ * contains all the Frontend data
+ * 
+ * @author Schoenegger / Purkart / Koch
+ */
+public class Frontend
 {
-	private Field fieldWithSettings;
-	private Thread connectionCommandHandler;
-	private FrontendGame frontendGame = new FrontendGame(this); //Send referenz to frontendGame
-	private Player player = new Player(true);
-	private Logic logic = new Logic(true);
-		
-	public void callMenue()
+    private Field fieldWithSettings;
+    private Thread connectionCommandHandler;
+    private FrontendGame frontendGame = new FrontendGame(this); // Send referenz to frontendGame
+    private Player player = new Player(true);
+    private Logic logic = new Logic(true);
+
+    /**
+     * calls the Menu at the beginning of the game
+     */
+    public void callMenue()
+    {
+	String connectionType;
+
+	System.out.println("************Welcome at Battleship Commander****************\n");
+	System.out.println("Select Game \n");
+
+	System.out.println("vs Host Game = 'H'");
+	System.out.println("vs Client Game = 'CL'");
+	System.out.println("vs CPU = 'CPU'");
+
+	System.out.println("Please select: ");
+
+	player.sendFrontendReferenceToLogic(this);
+	logic.setFrontendReference(this);
+	connectionType = readMenueInput();
+
+	// System.out.println("----" + connectionType);
+    }
+
+    /**
+     * red the intput read and valdiate the menu input by user
+     * 
+     * @return String
+     */
+    private String readMenueInput()
+    {
+	String connectionType;
+
+	connectionType = readStringFromConsole();
+
+	while (!createConnectionByInput(connectionType))
 	{
-		String connectionType;
-		
-		System.out.println("************Welcome at Battleship Commander****************\n");
-		System.out.println("Select Game \n");
-		
-		System.out.println("vs Host Game = 'H'");
-		System.out.println("vs Client Game = 'CL'");
-		System.out.println("vs CPU = 'CPU'");
-		
-		System.out.println("Please select: ");
-		
-		player.sendFrontendReferenceToLogic(this);
-		logic.setFrontendReference(this);
-		connectionType = readMenueInput();
-		
-		//System.out.println("----" + connectionType);
+	    System.out.println("Please Insert the Correct Text ");
+	    connectionType = readStringFromConsole();
 	}
 
-	private String readMenueInput()
-	{
-		String connectionType;
-		
-		connectionType = readStringFromConsole();
-		
-		while(!createConnectionByInput(connectionType))
-		{
-			System.out.println("Please Insert the Correct Text ");
-			connectionType = readStringFromConsole();
-		}
-		
-		return connectionType;
-	}
+	return connectionType;
+    }
 
-	private boolean createConnectionByInput(String connectionType) 
+    /**
+     * Create the connection by the user input
+     * 
+     * @param connectionType
+     * @return boolean
+     */
+    private boolean createConnectionByInput(String connectionType)
+    {
+	switch (connectionType)
 	{
-		switch(connectionType)
-		{
-			case "H":				
-				readHostSettings();
-				//logic.setIsMyTurn(true);
-				return true;
-				
-			case "CL":
-				readClientSettings();
-				//logic.setIsMyTurn(false);
-				return true;
-				
-			case "CPU":
-				createCpuPlayerConnection();
-				return true;
-				
-			default:				
-				return false;
-		}
-	}
-	
-	private void hostSettingMenue()
-	{
-		
-	}
-	
-	private void readHostSettings()
-	{
-		String hostPort;
-		
-		System.out.println("Select Host Port 8000 - 8500 ");
-		hostPort = readStringFromConsole();
-		
-		while(!createHostConnectionByInput(hostPort))
-		{
-			System.out.println("Please Insert the Correct Text ");
-			System.out.println("Select Host Port 8000 - 8500 ");
-			hostPort = readStringFromConsole();
-		}				
-	}
-	
-	private boolean createHostConnectionByInput(String hostPort)
-	{
-		int portNo;
-		
-		try
-		{
-			portNo = Integer.parseInt(hostPort);
-			
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-		
-		if(checkPortNumber(portNo))
-		{
-			connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo));
-			connectionCommandHandler.start();
-			executeGameSetupMenue();
-			return true;
-		}
-		
+	    case "H":
+		readHostSettings();
+		// logic.setIsMyTurn(true);
+		return true;
+
+	    case "CL":
+		readClientSettings();
+		// logic.setIsMyTurn(false);
+		return true;
+
+	    case "CPU":
+		createCpuPlayerConnection();
+		return true;
+
+	    default:
 		return false;
 	}
-	
-	private void readClientSettings()
+    }
+
+    /**
+     * Host setting Menu
+     */
+    private void hostSettingMenue()
+    {
+	// TODO delete if not needed
+    }
+
+    /**
+     * Read the host Settings
+     */
+    private void readHostSettings()
+    {
+	String hostPort;
+
+	System.out.println("Select Host Port 8000 - 8500 ");
+	hostPort = readStringFromConsole();
+
+	while (!createHostConnectionByInput(hostPort))
 	{
-		String clientPort;
-		String ipAddress;
-		
-		System.out.println("Select Host Port 8000 - 8500 ");
-		clientPort = readStringFromConsole();
-		
-		System.out.println("Insert Valid ip address ");
-		ipAddress = readStringFromConsole();
-		
-		while(!createClientConnectionByInput(clientPort, ipAddress))
-		{
-			System.out.println("Please Insert the Correct Text ");
-			System.out.println("Select Host Port 8000 - 8500 ");
-			clientPort = readStringFromConsole();
-			
-			System.out.println("Insert Valid ip address ");
-			ipAddress = readStringFromConsole();
-		}	
-		
+	    System.out.println("Please Insert the Correct Text ");
+	    System.out.println("Select Host Port 8000 - 8500 ");
+	    hostPort = readStringFromConsole();
 	}
-	
-	private boolean createClientConnectionByInput(String clientPort, String ipAddress)
+    }
+
+    /**
+     * Create a host connection by input
+     * 
+     * @param hostPort
+     * @return boolean
+     */
+    private boolean createHostConnectionByInput(String hostPort)
+    {
+	int portNo;
+
+	try
 	{
-		int portNo;
-		
-		try
-		{
-			portNo = Integer.parseInt(clientPort);
-			
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-		
-		if(checkPortNumber(portNo) && checkIpAddress(ipAddress))
-		{
-			//this.player = new Player(false);
-			this.logic = new Logic(false);	
-			connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo, ipAddress));
-			connectionCommandHandler.start();
-			logic.setFrontendReference(this);
-			executeGameSetupMenue();
-			
-			
-			return true;
-		}
-		
-		return false;
+	    portNo = Integer.parseInt(hostPort);
+
 	}
-		
-	private boolean checkIpAddress(String ipAddress) 
+	catch (Exception e)
 	{
-		
-		return true;
+	    return false;
 	}
 
-	private boolean createCpuPlayerConnection()
+	if (checkPortNumber(portNo))
 	{
-		System.out.println("Cpu player created");
-		
-		connectionCommandHandler = new Thread(new ConnectionCommandHandler());
-		connectionCommandHandler.start();
-		executeGameSetupMenue();
-		
-		System.out.println("cpu player game executed");
-		return true;
-	}
-	
-	private void startConnection(String connectionType)
-	{
-		
-	}
-	
-	private String readStringFromConsole()
-	{
-		return new Scanner( java.lang.System.in ).nextLine();
-	}
-	
-	private boolean checkPortNumber(int portNo)
-	{
-		if(portNo >= 8000 && portNo <= 8500)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	private void executeGameSetupMenue()
-	{
-		FrontendGameSetup gameSetup = new FrontendGameSetup();
-		if(gameSetup.callMenue())
-		{
-			this.fieldWithSettings = gameSetup.getFinischedField();
-		}
-		
-		sendInitFieldToLogic();
-	}
-	
-	private void sendInitFieldToLogic()
-	{
-		//player.createOwnField(fieldWithSettings);
-		logic.setInitField(fieldWithSettings);
+	    connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo));
+	    connectionCommandHandler.start();
+	    executeGameSetupMenue();
+	    return true;
 	}
 
-//*****************************************************************************************************
-//		CALL BY REF
-	public void sendFeedbackThatEnemyHasInitHisField()
-	{
-		System.out.println("\n Enemy has init his field");
-	}
-	
+	return false;
+    }
 
-	public String getNextCommand()
+    /**
+     * read the client setting by user
+     */
+    private void readClientSettings()
+    {
+	String clientPort;
+	String ipAddress;
+
+	System.out.println("Select Host Port 8000 - 8500 ");
+	clientPort = readStringFromConsole();
+
+	System.out.println("Insert Valid ip address ");
+	ipAddress = readStringFromConsole();
+
+	while (!createClientConnectionByInput(clientPort, ipAddress))
 	{
-		return frontendGame.getNextMove();
+	    System.out.println("Please Insert the Correct Text ");
+	    System.out.println("Select Host Port 8000 - 8500 ");
+	    clientPort = readStringFromConsole();
+
+	    System.out.println("Insert Valid ip address ");
+	    ipAddress = readStringFromConsole();
 	}
-	
-	public boolean askLogikIsAttacMoveValid(String nextMove)
+
+    }
+
+    /**
+     * Create client connection by input
+     * 
+     * @param clientPort
+     * @param ipAddress
+     * @return boolean
+     */
+    private boolean createClientConnectionByInput(String clientPort, String ipAddress)
+    {
+	int portNo;
+
+	try
 	{
-		return logic.isAttacMoveValid(nextMove);
-				//player.askLogikIsMoveValid();		
+	    portNo = Integer.parseInt(clientPort);
+
 	}
+	catch (Exception e)
+	{
+	    return false;
+	}
+
+	if (checkPortNumber(portNo) && checkIpAddress(ipAddress))
+	{
+	    // this.player = new Player(false);
+	    this.logic = new Logic(false);
+	    connectionCommandHandler = new Thread(new ConnectionCommandHandler(portNo, ipAddress));
+	    connectionCommandHandler.start();
+	    logic.setFrontendReference(this);
+	    executeGameSetupMenue();
+
+	    return true;
+	}
+
+	return false;
+    }
+
+    /**
+     * Check the IP Adress
+     * 
+     * @param ipAddress
+     * @return boolean
+     */
+    private boolean checkIpAddress(String ipAddress)
+    {
+	// TODO check and delete if it's not needed. return false and no false??
+	return true;
+    }
+
+    /**
+     * Create CPU player connection
+     * 
+     * @return boolean
+     */
+    private boolean createCpuPlayerConnection()
+    {
+	System.out.println("Cpu player created");
+
+	connectionCommandHandler = new Thread(new ConnectionCommandHandler());
+	connectionCommandHandler.start();
+	executeGameSetupMenue();
+
+	System.out.println("cpu player game executed");
+	// TODO return true and no false??
+	return true;
+    }
+
+    /**
+     * Start Connection
+     * 
+     * @param connectionType
+     */
+    private void startConnection(String connectionType)
+    {
+	// TODO delete wether ti is not needed?
+    }
+
+    /**
+     * Read string from console
+     * 
+     * @return Scanner object
+     */
+    private String readStringFromConsole()
+    {
+	return new Scanner(java.lang.System.in).nextLine();
+    }
+
+    /**
+     * Check port number
+     * 
+     * @param portNo
+     * @return boolean
+     */
+    private boolean checkPortNumber(int portNo)
+    {
+	if (portNo >= 8000 && portNo <= 8500)
+	{
+	    return true;
+	}
+	else
+	{
+	    return false;
+	}
+    }
+
+    /**
+     * Execute game setup menu
+     */
+    private void executeGameSetupMenue()
+    {
+	FrontendGameSetup gameSetup = new FrontendGameSetup();
+	if (gameSetup.callMenue())
+	{
+	    this.fieldWithSettings = gameSetup.getFinischedField();
+	}
+
+	sendInitFieldToLogic();
+    }
+
+    /**
+     * send the init field to the logic
+     */
+    private void sendInitFieldToLogic()
+    {
+	// player.createOwnField(fieldWithSettings);
+	logic.setInitField(fieldWithSettings);
+    }
+
+    // ***************************************************************************************************** //
+    /**
+     * Send the feedback back, weather the enemy had initialized his field. call by reference
+     */
+    public void sendFeedbackThatEnemyHasInitHisField()
+    {
+	System.out.println("\n Enemy has init his field");
+    }
+
+    /**
+     * get the next command
+     * 
+     * @return String
+     */
+    public String getNextCommand()
+    {
+	return frontendGame.getNextMove();
+    }
+
+    /**
+     * Ask the Logic whether the move is valide
+     * 
+     * @param nextMove
+     * @return
+     */
+    public boolean askLogikIsAttacMoveValid(String nextMove)
+    {
+	return logic.isAttacMoveValid(nextMove);
+	// player.askLogikIsMoveValid();
+    }
 }
