@@ -4,7 +4,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import GameUtilities.Command;
-
+/**
+ * Collect and handle the game data
+ * 
+ * @author Schoenegger / Purkart / Koch
+ */
 public class DataBox 
 {
 	private static Queue<Command> receiveCommands = new LinkedList<Command>();
@@ -13,6 +17,10 @@ public class DataBox
 	private static boolean accessForReceiveCommands = true;
 	private static boolean accessForSendCommands = true;
 	
+	/**
+	 * Get access to send commands
+	 * @return boolean
+	 */
 	private static boolean getAccessSendCommands()
 	{
 		while(!accessForSendCommands)

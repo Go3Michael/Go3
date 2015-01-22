@@ -1,32 +1,48 @@
 package Game;
 
 import GameUtilities.Field.Field;
-
-public class Player //Player not needed
+/***
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
+public class Player // Player not needed
 {
-	
-	private Logic logic;
-	 
-	
-	public Player(boolean isFirstPlayer) //The Host is the First Player
-	{
-		logic = new Logic(isFirstPlayer);		
-	}
-	
-	public void createOwnField(Field ownInitField)
-	{
-		logic.setInitField(ownInitField);		
-	}
-	
 
-	public void sendFrontendReferenceToLogic(Frontend refFrontend)
-	{
-		logic.setFrontendReference(refFrontend);
-	}
-	
-//	public boolean askLogikIsMoveValid()
-//	{
-//		return logic.isAttacMoveValid();
-//	}
-//	
+    private Logic logic;
+/**
+ * Constructor 
+ * 
+ * @param isFirstPlayer
+ */
+    public Player(boolean isFirstPlayer) // The Host is the First Player
+    {
+	logic = new Logic(isFirstPlayer);
+    }
+/**
+ * Create the own field
+ * 
+ * @param ownInitField
+ */
+    public void createOwnField(Field ownInitField)
+    {
+	logic.setInitField(ownInitField);
+    }
+
+    /**
+     * send Frontend Reference to Logig
+     * 
+     * @param refFrontend
+     */
+    public void sendFrontendReferenceToLogic(Frontend refFrontend)
+    {
+	logic.setFrontendReference(refFrontend);
+    }
+
+    //TODO who needs that shit?
+    // public boolean askLogikIsMoveValid()
+    // {
+    // return logic.isAttacMoveValid();
+    // }
+    //
 }
