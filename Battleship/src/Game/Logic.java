@@ -69,6 +69,9 @@ public class Logic
 
 	private void startNextMove()
 	{
+		ownField.display();
+		enemyField.display();
+		
 		if (isMyTurn)
 		{
 			fireToFieldPosition(referenceFrontend.getNextCommand());

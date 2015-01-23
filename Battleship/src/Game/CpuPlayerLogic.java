@@ -125,6 +125,7 @@ public class CpuPlayerLogic
 		ownField.setShipOnField(ship2);
 		ownField.setShipOnField(ship3);
 		ownField.display();
+		
 	}
 	
 	
