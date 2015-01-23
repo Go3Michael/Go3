@@ -1,6 +1,5 @@
 package GameConnections;
 
-
 import java.awt.Point;
 
 import Game.CpuPlayer;
@@ -9,53 +8,68 @@ import GameUtilities.Ship;
 import GameUtilities.ShipPosition;
 import GameUtilities.ShipType;
 
+/**
+ * Local Connection - CPU Player
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
 public class LocalConnection extends Connection
 {
-	private CpuPlayer cpuPlayer;
+    private CpuPlayer cpuPlayer;
 
-	public LocalConnection() 
-	{
-		this.cpuPlayer = new CpuPlayer();
-	}
-	
-	@Override
-	public boolean isConnectionAvailable() 
-	{
-		
-		return true;
-	}
+    /**
+     * Local Connection - CPU Player
+     */
+    public LocalConnection()
+    {
+	this.cpuPlayer = new CpuPlayer();
+    }
 
-	
-	@Override
-	public Command receiveCommand()
-	{
-		Command testCommand = cpuPlayer.receiveCommand();
-		
-		if (cpuPlayer.receiveCommand() != null)
-		{
-			
-			System.out.println("Command from CPU: [" + testCommand.toString() + "]");
-		}
-//		return cpuPlayer.receiveCommand();
-		return testCommand;
-	}
+    /**
+     * is connectection available
+     * 
+     * @return true
+     */
+    @Override
+    public boolean isConnectionAvailable()
+    {
+	return true;
+    }
 
-	@Override
-	public void sendCommand(Command command) 
-	{
-		if (command != null && command.isValid()) {
-			System.out.println("in local connection send");
-			cpuPlayer.sendCommand(command);
-//			cpuPlayer.clearCommand();
-		}
-	}
+    /**
+     * Receive Command
+     * 
+     * @return command
+     */
+    @Override
+    public Command receiveCommand()
+    {
 
-	@Override
-	public void close()
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	return cpuPlayer.receiveCommand();
+    }
 
-	
+    /**
+     * send command
+     */
+    @Override
+    public void sendCommand(Command command)
+    {
+	if (command != null && command.isValid())
+	{
+	    System.out.println("in local connection send");
+	    cpuPlayer.sendCommand(command);
+	}
+    }
+
+    /**
+     * close
+     */
+    @Override
+    public void close()
+    {
+	// TODO Auto-generated method stub
+
+    }
+
 }

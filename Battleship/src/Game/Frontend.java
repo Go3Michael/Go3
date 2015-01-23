@@ -39,7 +39,6 @@ public class Frontend
 		logic.setFrontendReference(this);
 		connectionType = readMenueInput();
 
-		// System.out.println("----" + connectionType);
 	}
 
 	/**
@@ -287,15 +286,15 @@ public class Frontend
 	 */
 	private void sendInitFieldToLogic()
 	{
-		// player.createOwnField(fieldWithSettings);
 		logic.setInitField(fieldWithSettings);
 	}
-	//--------->>>>>now the Logic controlles the game<<<<<<---------------------------
+
+	// --------->>>>>now the Logic controlles the game<<<<<<---------------------------
 
 	// *******************************CALL BY REFERENCE******************************** //
-	
+
 	/**
-	 * Send the feedback back, weather the enemy had initialized his field. 
+	 * Send the feedback back, weather the enemy had initialized his field.
 	 */
 	public void sendFeedbackThatEnemyHasInitHisField()
 	{

@@ -1,8 +1,12 @@
 package GameUtilities.Field;
 
-public enum FieldState 
+/**
+ * Results of fire
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
+public enum FieldState
 {
-	STRIKE_WATER,
-	STRIKE_SHIP,
-	UNKNOWN;
+    STRIKE_WATER, STRIKE_SHIP, UNKNOWN;
 }

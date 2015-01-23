@@ -29,7 +29,7 @@ public class Logic
 	private TestEnemy testEnemy = new TestEnemy();
 
 	// *****************************************
-	
+
 	/**
 	 * Logic
 	 * 
@@ -41,16 +41,17 @@ public class Logic
 	}
 
 	/********************** FUNCTION FOR FRONTEND ********************************/
-	
+
 	/**
 	 * Set The Reference for the Logic
+	 * 
 	 * @param refFrontend
 	 */
-	public void setFrontendReference(Frontend refFrontend)	//----->>>REF FRONTEND 
+	public void setFrontendReference(Frontend refFrontend) // ----->>>REF FRONTEND
 	{
 		this.referenceFrontend = refFrontend;
 	}
-	
+
 	/**
 	 * set the initial field
 	 * 
@@ -63,13 +64,12 @@ public class Logic
 	}
 
 	/********************** FUNCTION FOR LOGIC ***********************************/
-	
 
 	private void startNextMove()
 	{
 		ownField.display();
 		enemyField.displayIncognito();
-		
+
 		if (isMyTurn)
 		{
 			fireToFieldPosition(referenceFrontend.getNextCommand());
@@ -80,7 +80,6 @@ public class Logic
 		{
 			// wait for enemy move
 			System.out.println("Wait for enemy move");
-			//waitForEnemyMove();
 			setIsMyTurn(true);
 		}
 		commandHandler.receiveCommandFromDataBox();
@@ -105,7 +104,6 @@ public class Logic
 
 	private Command buildAttacCommand(String fireMove)
 	{
-		// TODO
 		String segments[] = fireMove.split(",");
 		Point point = new Point(Integer.parseInt(segments[0]), Integer.parseInt(segments[1]));
 		AttackPosition attackPos = new AttackPosition(point);
@@ -140,7 +138,7 @@ public class Logic
 	{
 		this.enemyField = enemyField;
 	}
-	
+
 	private void wait(int ms)
 	{
 		try
@@ -149,7 +147,7 @@ public class Logic
 		}
 		catch (Exception e)
 		{
-			// Fuck off
+			System.out.println(e);
 		}
 	}
 
@@ -159,7 +157,7 @@ public class Logic
 	{
 		currAttacCommand = new Command(1, attacPosition, "ATTAC_COMMAND");
 		ownField.fireToPosition(attacPosition.getXyPosition().x, attacPosition.getXyPosition().y);
-		
+
 		startNextMove();
 	}
 
@@ -179,19 +177,15 @@ public class Logic
 			wait(300);
 			System.out.println("wait for settings other player");
 		}
-		// referenceFrontend.sendFeedbackThatEnemyHasInitHisField();
+
 		startNextMove();
 	}
-	
+
 	private Command buildInitCommand(Field field)
 	{
 		Command initCommand = new Command(1, field, "INIT_FIELD");
 
 		return initCommand;
 	}
-
-	
-	
-
 
 }

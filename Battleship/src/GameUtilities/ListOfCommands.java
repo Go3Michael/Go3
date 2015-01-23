@@ -1,7 +1,11 @@
 package GameUtilities;
 
-public class ListOfCommands 
+/**
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
+public class ListOfCommands
 {
-	
-
+    // TODO w.d.w.b.
 }
