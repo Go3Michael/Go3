@@ -27,10 +27,17 @@ public class LocalConnection extends Connection
 
 	
 	@Override
-	public Command receiveCommand() 
+	public Command receiveCommand()
 	{
+		Command testCommand = cpuPlayer.receiveCommand();
 		
-		 return cpuPlayer.receiveCommand();		
+		if (cpuPlayer.receiveCommand() != null)
+		{
+			
+			System.out.println("Command from CPU: [" + testCommand.toString() + "]");
+		}
+//		return cpuPlayer.receiveCommand();
+		return testCommand;
 	}
 
 	@Override
@@ -39,6 +46,7 @@ public class LocalConnection extends Connection
 		if (command != null && command.isValid()) {
 			System.out.println("in local connection send");
 			cpuPlayer.sendCommand(command);
+//			cpuPlayer.clearCommand();
 		}
 	}
 

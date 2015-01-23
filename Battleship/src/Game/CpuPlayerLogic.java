@@ -24,7 +24,9 @@ public class CpuPlayerLogic
 	public Command getNextCommand()
 	{
 //		System.out.println("return Command from Cpu Logic: " + nextReturnCommand.toString());
-		return nextReturnCommand;
+		Command actualCommand = nextReturnCommand;
+		nextReturnCommand = null;
+		return actualCommand;
 	}
 	
 	public void sendCommand(Command command)
@@ -51,22 +53,22 @@ public class CpuPlayerLogic
 	
 	private Command buildFieldCommand()
 	{
-		 Command fieldCommand = new Command(1, ownField, "INIT_FIELD");
-		 
+		Command fieldCommand = new Command(1, ownField, "INIT_FIELD");
+		
 		return fieldCommand;
-				
 	}
 
 	private Command getAnswerCommand() 
 	{
 		Point point = enemyField.getRandomfreeFieldCoordinate();
+		return buildAttacCommand(point);
 		
-		return null;
+//		return null;
 	}
 
 	private Command buildAttacCommand(Point point)
 	{
-		Command attacCommand = new Command(1, new AttackPosition(point), "INIT_FIELD");
+		Command attacCommand = new Command(1, new AttackPosition(point), "ATTAC_COMMAND");
 		
 		return attacCommand;
 	}
