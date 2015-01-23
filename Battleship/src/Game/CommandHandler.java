@@ -5,128 +5,146 @@ import GameUtilities.Command;
 import GameUtilities.AttackPosition.AttackPosition;
 import GameUtilities.Field.Field;
 
-public class CommandHandler 
+/**
+ * @author Team Schoenegger / Purkart / Koch
+ *
+ *
+ *         Handler for the commands between the component
+ */
+
+public class CommandHandler
 {
 	private Logic referenceLogic;
 	private int commandNo = 0;
-	
+
 	public CommandHandler(Logic refLogic)
 	{
 		this.referenceLogic = refLogic;
 	}
 
+	/**
+	 * Send the inititalised field
+	 * 
+	 * @param initCommand
+	 *            command
+	 */
 	public void sendInitField(Command initCommand)
 	{
-		
+
 		DataBox.pushSendCommand(initCommand);
 		System.out.println("pushInitToSendCommand");
-//		sendCommandToBox((Object)field, "INIT_FIELD");
+
 		receiveInitFieldFromEnemy();
 	}
-	
+
+	/**
+	 * Send the Attac Command
+	 * 
+	 * @param attacCommand
+	 *            command
+	 */
 	public void sendAttacCommand(Command attacCommand)
 	{
 		System.out.println("send Attack Command");
 		DataBox.pushSendCommand(attacCommand);
-//		sendCommandToBox(attacCommand, "ATTAC_COMMAND");
 		receiveAttacCommandFromEnemy();
 	}
 
-	private void receiveAttacCommandFromEnemy() 
+	/**
+	 * Received the attact command from the emeny player
+	 */
+	private void receiveAttacCommandFromEnemy()
 	{
 		System.out.println("receive command from Enemy");
 		receiveCommandFromDataBox();
-		
+
 	}
 
-	private void sendCommandToBox(Object commandData, String commandType) 
-	{
-//		Command command = new Command(getNewCommandNumber(), commandData, commandType);		
-//		DataBox.pushSendCommand(command);
-	}
-	
-	
-	//**************receive Command********************
-	//TODO
-	//create AList of sendet commandos
-	//If commando was not done locate Command per number and send it again!!
-	
+	// **************receive Command********************
+	// create a List of sendet commandos
+	// If commando was not done locate Command per number and send it again!!
+
+	/**
+	 * received the initialised field from enemy
+	 * 
+	 */
 	public void receiveInitFieldFromEnemy()
 	{
-		while(DataBox.isReceiveListEmpty())
+		while (DataBox.isReceiveListEmpty())
 		{
-			//Send Frontend Wait State
-//			System.out.println("Wait for receive Data Box --- Command Handler---");
-			wait(300);
-		}		
-		receiveCommandFromDataBox();
-	}
-	
-	public void receiveCommandFromDataBox()
-	{
-		Command command = DataBox.popReceiveCommand();
-		while (command == null) {
-			
-			//WAIT
+			// Wait for receive Data Box --- Command Handler---
 			wait(300);
 		}
-		System.out.println("received from databox for Logic" + command.toString());
-		//check type of Commands
-		
-		switch(command.getType())
+		receiveCommandFromDataBox();
+	}
+
+	/**
+	 * received the command form the databox
+	 */
+	public void receiveCommandFromDataBox()
+	{
+		Command command = null;
+		while (command == null)
+		{
+			command = DataBox.popReceiveCommand();
+			// WAIT
+			wait(300);
+		}
+		System.out.println("\n received from ...databox for Logic" + command.toString() + command.getType());
+
+		// check type of Commands
+		switch (command.getType())
 		{
 			case "INIT_FIELD":
 				setEnemyFieldInLogicByCommand(command);
 				System.out.println("Income Init Field");
 				break;
 			case "ATTAC_COMMAND":
-				setAttacCommandInLogic(command);
+				sendValidAttacCommandToLogic(command);
 				System.out.println("Income attacCommand");
-			break;
+				break;
 		}
 	}
-	
-	private void setAttacCommandInLogic(Command command) 
+
+	private void sendValidAttacCommandToLogic(Command command)
 	{
-		if(command.getCommandData() instanceof AttackPosition)
+		if (command.getCommandData() instanceof AttackPosition)
 		{
-//			referenceLogic.setEnemyField((Field)command.getCommandData());
-			referenceLogic.setEnemyAttacCommand((AttackPosition)command.getCommandData());
+			referenceLogic.setEnemyAttacCommand((AttackPosition) command.getCommandData());
 		}
 		else
 		{
-			
+			System.out.println("No valid Attac command received");
 		}
 	}
 
 	private void setEnemyFieldInLogicByCommand(Command command)
 	{
-		if(command.getCommandData() instanceof Field)
+		if (command.getCommandData() instanceof Field)
 		{
-			referenceLogic.setEnemyField((Field)command.getCommandData());
+			referenceLogic.setEnemyField((Field) command.getCommandData());
 		}
 		else
 		{
-			//Send Error Message to Frontend!!!
 			System.out.println("Error in EnemyField ---Command Handler--");
 		}
 	}
-	
-	//helpers
+
+	// helpers
 	private int getNewCommandNumber()
 	{
 		return ++this.commandNo;
 	}
-	
+
 	private void wait(int ms)
-	{  
+	{
 		try
 		{
 			Thread.sleep(ms);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			//mir doch wurst
+			System.out.println(e);
 		}
 	}
 }
