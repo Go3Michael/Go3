@@ -7,17 +7,26 @@ import GameUtilities.Ship;
 import GameUtilities.ShipPosition;
 import GameUtilities.ShipType;
 import GameUtilities.Field.Field;
-
+/**
+ * Test enemy
+ * 
+ * @author Schoenegger / Purkart / Koch
+ */
 public class TestEnemy 
 {
 	private Field enemyField = new Field();
 	private int commandNo = 0;
-			
+		
+	/**
+	 * Constructor
+	 */
 	public void attacBack()
 	{
-		
+		//TODO empty constructor ?
 	}
-	
+	/**
+	 * send initialize field command 
+	 */
 	public void sendFieldInitCommand()
 	{
 		fillFieldWithShips();
@@ -54,7 +63,7 @@ public class TestEnemy
 		}
 		catch(Exception e)
 		{
-			//Sinnlos
+			//TODO -> Sinnlos ?? 
 		}
 	}
 }

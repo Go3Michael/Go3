@@ -2,27 +2,53 @@ package GameUtilities.AttackPosition;
 
 import java.awt.Point;
 
+/**
+ * Attack Position
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
 public class AttackPosition
 {
-	private Point xyPosition;
+    private Point xyPosition;
 
-	public AttackPosition(Point point)
-	{
-		this.setXyPosition(point);
-	}
+    /**
+     * Attack Position
+     * 
+     * @param point
+     */
+    public AttackPosition(Point point)
+    {
+	this.setXyPosition(point);
+    }
 
-	public Point getXyPosition()
-	{
-		return xyPosition;
-	}
+    /**
+     * get xy Position
+     * 
+     * @return Point
+     */
+    public Point getXyPosition()
+    {
+	return xyPosition;
+    }
 
-	public void setXyPosition(Point xyPosition)
-	{
-		this.xyPosition = xyPosition;
-	}
-	
-	public String toString()
-	{
-		return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
-	}
+    /**
+     * set xy Position
+     * 
+     * @param xyPosition
+     */
+    public void setXyPosition(Point xyPosition)
+    {
+	this.xyPosition = xyPosition;
+    }
+
+    /**
+     * Convert x and y position to string x,y
+     * 
+     * @return String
+     */
+    public String toString()
+    {
+	return Integer.toString(xyPosition.x) + "," + Integer.toString(xyPosition.y);
+    }
 }

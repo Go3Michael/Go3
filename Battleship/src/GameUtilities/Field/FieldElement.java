@@ -1,27 +1,50 @@
 package GameUtilities.Field;
 
-public class FieldElement 
+/**
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
+public class FieldElement
 {
-	private FieldState fieldState;
-	private boolean isTaken;
+    private FieldState fieldState;
+    private boolean isTaken;
 
-	public FieldState getFieldState() 
-	{
-		return fieldState;
-	}
-	
-	public boolean isTaken()
-	{
-		return this.isTaken;
-	}
+    /**
+     * get the field state
+     * 
+     * @return FieldState
+     */
+    public FieldState getFieldState()
+    {
+	return fieldState;
+    }
 
-	public void setFieldState(FieldState fieldState) 
-	{
-		this.fieldState = fieldState;
-	}
-	
-	public void setTaken()
-	{
-		this.isTaken = true;
-	}
+    /**
+     * is on this field position a ship
+     * 
+     * @return boolean
+     */
+    public boolean isTaken()
+    {
+	return this.isTaken;
+    }
+
+    /**
+     * set the field state
+     * 
+     * @param fieldState
+     */
+    public void setFieldState(FieldState fieldState)
+    {
+	this.fieldState = fieldState;
+    }
+
+    /**
+     * set a ship on this position
+     */
+    public void setTaken()
+    {
+	this.isTaken = true;
+    }
 }

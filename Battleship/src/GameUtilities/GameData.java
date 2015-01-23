@@ -1,6 +1,11 @@
 package GameUtilities;
 
-public class GameData 
+/**
+ * 
+ * @author Schoenegger / Purkart / Koch
+ *
+ */
+public class GameData
 {
-
+    // TODO wird das wirklich benötigt ??
 }
