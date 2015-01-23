@@ -10,133 +10,126 @@ import GameUtilities.Command;
  */
 public class ConnectionCommandHandler implements Runnable
 {
-    private ConnectionLogic connectionLogic;
-    private Command commandSend;
-    private Command commandReceive;
-    private Connection connection = null;
+	private ConnectionLogic connectionLogic;
+	private Command commandSend;
+	private Command commandReceive;
+	private Connection connection = null;
 
-    private static boolean abortConnection = false; // static.. you can call it from everywhere
+	private static boolean abortConnection = false; // static.. you can call it from everywhere
 
-    /**
-     * Constructor
-     */
-    public ConnectionCommandHandler()
-    {
-	this.connection = new LocalConnection();
-	this.connectionLogic = new ConnectionLogic(connection);
-    }
-
-    /**
-     * Constructor Server Connection
-     * 
-     * @param port
-     */
-    public ConnectionCommandHandler(int port)
-    {
-	// GlobalGameData.setIsMyTurn(true);
-
-	try
+	/**
+	 * Constructor
+	 */
+	public ConnectionCommandHandler()
 	{
-	    this.connection = new TCPConnectionServer(port);
-	    this.connectionLogic = new ConnectionLogic(connection);
+		this.connection = new LocalConnection();
+		this.connectionLogic = new ConnectionLogic(connection);
 	}
-	catch (Exception exception)
+
+	/**
+	 * Constructor Server Connection
+	 * 
+	 * @param port
+	 */
+	public ConnectionCommandHandler(int port)
 	{
-	    System.out.println("Can not create connection. Please restart the Game !!!\n Exception:"
-		    + exception.toString());
+
+		try
+		{
+			this.connection = new TCPConnectionServer(port);
+			this.connectionLogic = new ConnectionLogic(connection);
+		}
+		catch (Exception exception)
+		{
+			System.out.println("Can not create connection. Please restart the Game !!!\n Exception:"
+					+ exception.toString());
+		}
 	}
-    }
 
-    /**
-     * Constructor Client Connection
-     * 
-     * @param port
-     * @param ipAdress
-     */
-    public ConnectionCommandHandler(int port, String ipAdress)
-    {
-	GlobalGameData.setIsMyTurn(false);
-
-	try
+	/**
+	 * Constructor Client Connection
+	 * 
+	 * @param port
+	 * @param ipAdress
+	 */
+	public ConnectionCommandHandler(int port, String ipAdress)
 	{
-	    this.connection = new TCPConnectionClient(port, ipAdress);
-	    this.connectionLogic = new ConnectionLogic(connection);
+		GlobalGameData.setIsMyTurn(false);
+
+		try
+		{
+			this.connection = new TCPConnectionClient(port, ipAdress);
+			this.connectionLogic = new ConnectionLogic(connection);
+		}
+		catch (Exception exception)
+		{
+			System.out.println("Can not create connection. Please restart the Game !!!\n Exception:"
+					+ exception.toString());
+		}
 	}
-	catch (Exception exception)
+
+	/**
+	 * Aborts all connections of this type
+	 */
+	public static void abortConnection()
 	{
-	    System.out.println("Can not create connection. Please restart the Game !!!\n Exception:"
-		    + exception.toString());
+		self: abortConnection = true;
 	}
-    }
 
-    /**
-     * Aborts all connections of this type
-     */
-    public static void abortConnection()
-    {
-	self: abortConnection = true;
-    }
-
-    /**
-     * Runs the connection, send an receive TCP commands
-     */
-    @Override
-    public void run()
-    {
-	abortConnection = false;
-	System.out.println("Thread begin");
-
-	do
+	/**
+	 * Runs the connection, send an receive TCP commands
+	 */
+	@Override
+	public void run()
 	{
-	    commandSend = getNextCommandFromDataBox();
-	    // if (commandSend == null)
-	    // {
-	    // continue;
-	    // }
-	    // System.out.println("---------Thread --command to player:" + commandSend.toString());
-	    connectionLogic.sendCommandToPlayer(commandSend);
-	    wait(300);
+		abortConnection = false;
 
-	    this.commandReceive = connectionLogic.getCommandFromPlayer();
-	    // System.out.println("---------Thread --command to DataBox:" + commandReceive.toString());
-	    if (this.commandReceive != null && this.commandReceive.isValid())
-	    {
-		System.out.println("send recieved command to DataBox: " + this.commandReceive.toString());
-		sendCommandToDataBox(commandReceive);
-	    }
-	    wait(300);
+		do
+		{
+			commandSend = getNextCommandFromDataBox();
+
+			connectionLogic.sendCommandToPlayer(commandSend);
+
+			wait(300);
+
+			this.commandReceive = connectionLogic.getCommandFromPlayer();
+
+			if (this.commandReceive != null && this.commandReceive.isValid())
+			{
+				System.out.println("send recieved command to DataBox: " + this.commandReceive.toString());
+				sendCommandToDataBox(commandReceive);
+			}
+
+			wait(300);
+		}
+		while (!abortConnection);
+
+		connectionLogic.closeConnection();
 	}
-	while (!abortConnection);
 
-	System.out.println("Thread end");
+	// ************private functions for Data Box communication***********
 
-	connectionLogic.closeConnection();
-    }
-
-    // ************private functions for Data Box communication***********
-
-    private Command getNextCommandFromDataBox()
-    {
-	return DataBox.popSendCommand();
-    }
-
-    private void sendCommandToDataBox(Command command)
-    {
-	// System.out.print(arg0);
-	DataBox.pushReceiveCommand(command);
-    }
-
-    private void wait(int ms)
-    {
-	try
+	private Command getNextCommandFromDataBox()
 	{
-	    Thread.sleep(ms);
+		return DataBox.popSendCommand();
+	}
 
-	}
-	catch (Exception e)
+	private void sendCommandToDataBox(Command command)
 	{
-	    // mir doch wurst
+		DataBox.pushReceiveCommand(command);
 	}
-    }
+
+	private void wait(int ms)
+	{
+		try
+		{
+			Thread.sleep(ms);
+
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+	}
 
 }
