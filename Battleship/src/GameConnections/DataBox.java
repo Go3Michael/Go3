@@ -13,56 +13,7 @@ public class DataBox
 	private static boolean accessForReceiveCommands = true;
 	private static boolean accessForSendCommands = true;
 	
-	private static boolean getAccessSendCommands()
-	{
-		while(!accessForSendCommands)
-		{
-			try
-			{
-				System.out.println("wait send access");
-				Thread.sleep((int)(Math.random()*1000));
-			}
-			catch(Exception e)
-			{
-				System.out.println(e.toString() + "Error getAccessSendCommands");
-			}
-		}
-		
-		accessForSendCommands = false; //lock access for other calls
-		
-		return true;
-	}
-	
-	private static void freeAccessSendCommands()
-	{
-		accessForSendCommands = true;
-	}
-	
-	private static boolean getAccessReceiveCommands()
-	{
-		while(!accessForReceiveCommands)
-		{
-			try
-			{
-				System.out.println("wait receive access");
-				Thread.sleep((int)(Math.random()*1000));
-			}
-			catch(Exception e)
-			{
-				System.out.println(e.toString() + "Error getAccessreceiveCommands");
-			}
-		}
-		
-		accessForReceiveCommands = false; //lock acces for other calls
-		
-		return true;
-	}
-	
-	private static void freeAccessReceiveCommands()
-	{
-		accessForReceiveCommands = true;
-	}
-	
+
 	public static boolean isReceiveListEmpty()
 	{
 		if(receiveCommands.isEmpty())
@@ -144,6 +95,56 @@ public class DataBox
 		
 		receiveCommands.add(command);
 		freeAccessReceiveCommands();
+	}
+	
+	private static boolean getAccessSendCommands()
+	{
+		while(!accessForSendCommands)
+		{
+			try
+			{
+				System.out.println("wait send access");
+				Thread.sleep((int)(Math.random()*1000));
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.toString() + "Error getAccessSendCommands");
+			}
+		}
+		
+		accessForSendCommands = false; //lock access for other calls
+		
+		return true;
+	}
+	
+	private static void freeAccessSendCommands()
+	{
+		accessForSendCommands = true;
+	}
+	
+	private static boolean getAccessReceiveCommands()
+	{
+		while(!accessForReceiveCommands)
+		{
+			try
+			{
+				System.out.println("wait receive access");
+				Thread.sleep((int)(Math.random()*1000));
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.toString() + "Error getAccessreceiveCommands");
+			}
+		}
+		
+		accessForReceiveCommands = false; //lock acces for other calls
+		
+		return true;
+	}
+	
+	private static void freeAccessReceiveCommands()
+	{
+		accessForReceiveCommands = true;
 	}
 	
 }

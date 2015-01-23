@@ -20,7 +20,7 @@ public class CommandHandler
 		
 		DataBox.pushSendCommand(initCommand);
 		System.out.println("pushInitToSendCommand");
-//		sendCommandToBox((Object)field, "INIT_FIELD");
+
 		receiveInitFieldFromEnemy();
 	}
 	
@@ -64,14 +64,16 @@ public class CommandHandler
 	
 	public void receiveCommandFromDataBox()
 	{
-		Command command = DataBox.popReceiveCommand();
-		while (command == null) {
-			
+		Command command = null;
+		while (command == null) 
+		{
+			command = DataBox.popReceiveCommand();
 			//WAIT
 			wait(300);
 		}
-		System.out.println("received from databox for Logic" + command.toString());
+		System.out.println("\n received from ...databox for Logic" + command.toString() + command.getType());
 		//check type of Commands
+		
 		
 		switch(command.getType())
 		{
@@ -80,13 +82,13 @@ public class CommandHandler
 				System.out.println("Income Init Field");
 				break;
 			case "ATTAC_COMMAND":
-				setAttacCommandInLogic(command);
+				sendValidAttacCommandToLogic(command);
 				System.out.println("Income attacCommand");
 			break;
 		}
 	}
 	
-	private void setAttacCommandInLogic(Command command) 
+	private void sendValidAttacCommandToLogic(Command command) 
 	{
 		if(command.getCommandData() instanceof AttackPosition)
 		{
@@ -95,7 +97,7 @@ public class CommandHandler
 		}
 		else
 		{
-			
+			System.out.println("No valid Attac command received");
 		}
 	}
 

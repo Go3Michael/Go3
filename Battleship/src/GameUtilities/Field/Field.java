@@ -56,19 +56,13 @@ public class Field
 		{
 			for(int j = 0; j<=9; j++)
 			{
-//				if(fieldElemtens[i][j].isTaken() && fieldElemtens[i][j].getFieldState() == FieldState.STRIKE_SHIP)
-//				{
-//					allSunk = true;
-//				}
-				if (fieldElemtens[i][j].isTaken()) {
-					if (fieldElemtens[i][j].getFieldState() != FieldState.STRIKE_SHIP) {
-						return false;
-					}
+				if(fieldElemtens[i][j].isTaken() && fieldElemtens[i][j].getFieldState() != FieldState.STRIKE_SHIP)
+				{
+					return false;
 				}
 			}
 		}
 		
-//		return false;
 		return true;
 	}
 	
