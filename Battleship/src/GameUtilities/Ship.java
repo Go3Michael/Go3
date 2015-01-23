@@ -28,6 +28,8 @@ public class Ship
 		    default:	countSector = 3;
 			break;
 		}
+		
+		
 	
 	}
 	
@@ -61,4 +63,8 @@ public class Ship
 	    return this.countSector;
     	}
     
+	public ShipPosition getShipPosition()
+	{
+		return this.shipPosition;
+	}
 }

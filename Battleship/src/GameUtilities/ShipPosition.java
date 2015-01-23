@@ -9,7 +9,7 @@ public class ShipPosition
 	public ShipPosition(Point point, String alignment)
 	{
 		this.xyPosition = point;
-		this.alignment = alignment;
+		this.alignment = alignment; // HORIZONTAL || VERTICAL
 	}
 	
 	public Point getXyPosition()

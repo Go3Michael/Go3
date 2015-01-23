@@ -130,6 +130,39 @@ public class Field
 		return transferDataString;
 	}
 	
+	public void setTaken()
+	{
+		for(Ship ship : shipsOnField)
+		{
+			for (int i = 0; i<=9; i++) 
+			{
+				for (int j = 0; j<=9; i++)
+				{
+					if (i == ship.getShipPosition().getXyPosition().x && j == ship.getShipPosition().getXyPosition().y)
+					{
+						fieldElemtens[i][j].setTaken();
+						int countSector = ship.getCountSector();
+						String alignment = ship.getShipPosition().getAlignment();
+						if (alignment.equals("VERTICAL"))
+						{
+							for (int sector = 1; sector <= countSector; sector++)
+							{
+								fieldElemtens[i][countSector].setTaken();
+							}
+						}
+						else if (alignment.equals("HORIZONTAL"))
+						{
+							for (int sector = 1; sector <= countSector; sector++)
+							{
+								fieldElemtens[countSector][j].setTaken();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public void display()
 	{
 		System.out.println(" 1 2 3 4 5 6 7 8 9 10");
