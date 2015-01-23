@@ -51,8 +51,6 @@ public class Logic
 		this.referenceFrontend = refFrontend;
 	}
 	
-	
-
 	/**
 	 * set the initial field
 	 * 
@@ -70,7 +68,7 @@ public class Logic
 	private void startNextMove()
 	{
 		ownField.display();
-		enemyField.display();
+		enemyField.displayIncognito();
 		
 		if (isMyTurn)
 		{
@@ -96,10 +94,13 @@ public class Logic
 	private boolean fireToFieldPosition(String fireMove)
 	{
 		int[] attacCoordinates = buildCoordinatesByString(fireMove);
+		boolean returnValue = false;
+		Command attacCommand = buildAttacCommand(fireMove);
 
 		System.out.println("Send Attac command to command Handler from logic");
-		commandHandler.sendAttacCommand(buildAttacCommand(fireMove));
-		return enemyField.fireToPosition(attacCoordinates[0], attacCoordinates[1]);
+		enemyField.fireToPosition(attacCoordinates[0], attacCoordinates[1]);
+		commandHandler.sendAttacCommand(attacCommand);
+		return returnValue;
 	}
 
 	private Command buildAttacCommand(String fireMove)
@@ -111,21 +112,6 @@ public class Logic
 
 		Command command = new Command(1, attackPos, "ATTAC_COMMAND");
 		return command;
-	}
-
-	private void waitForEnemyMove()
-	{
-		Command attacCommand;
-		// TODO
-//		 while (referenceFrontend.getNextCommand() == null)
-//		 {
-//			
-//		 }
-		commandHandler.receiveCommandFromDataBox();
-		
-//		fireToFieldPosition(referenceFrontend.getNextCommand());
-//		referenceFrontend.getNextCommand();
-
 	}
 
 	public boolean isAttacMoveValid(String nextMove)
@@ -172,6 +158,8 @@ public class Logic
 	public void setEnemyAttacCommand(AttackPosition attacPosition)// called from Command Handler
 	{
 		currAttacCommand = new Command(1, attacPosition, "ATTAC_COMMAND");
+		ownField.fireToPosition(attacPosition.getXyPosition().x, attacPosition.getXyPosition().y);
+		
 		startNextMove();
 	}
 

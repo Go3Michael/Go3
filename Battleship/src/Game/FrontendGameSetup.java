@@ -25,12 +25,13 @@ public class FrontendGameSetup
 	private void createTestObjectField()
 	{
 		System.out.println("Field automatic init done");
-		Ship ship = new Ship(new ShipPosition(new Point(5,5),"vertical"), ShipType.AIRCARRIER, 1);
+		Ship ship = new Ship(new ShipPosition(new Point(5,5),"VERTICAL"), ShipType.AIRCARRIER, 1);
 		fieldToSet.setShipOnField(ship);
-		ship = new Ship(new ShipPosition(new Point(3,3),"vertical"), ShipType.DESTROYER, 2);
+		ship = new Ship(new ShipPosition(new Point(3,3),"VERTICAL"), ShipType.DESTROYER, 2);
 		fieldToSet.setShipOnField(ship);
-		ship = new Ship(new ShipPosition(new Point(7,7),"vertical"), ShipType.YELLOW_SUBMARINE, 3);
+		ship = new Ship(new ShipPosition(new Point(7,7),"VERTICAL"), ShipType.YELLOW_SUBMARINE, 3);
 		fieldToSet.setShipOnField(ship);
+		fieldToSet.setTaken();
 	}
 
 }

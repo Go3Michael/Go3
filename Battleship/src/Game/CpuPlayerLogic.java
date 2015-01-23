@@ -118,14 +118,13 @@ public class CpuPlayerLogic
 	{
 		//simple ship init for Alpha Version
 		Ship ship1 = new Ship(new ShipPosition(new Point(2,2),"HORIZONTAL"),ShipType.AIRCARRIER,1);
-		Ship ship2 = new Ship(new ShipPosition(new Point(2,5),"HORIZONTAL"),ShipType.AIRCARRIER,1);
-		Ship ship3 = new Ship(new ShipPosition(new Point(5,8),"HORIZONTAL"),ShipType.AIRCARRIER,1);
+		Ship ship2 = new Ship(new ShipPosition(new Point(4,5),"HORIZONTAL"),ShipType.AIRCARRIER,1);
+		Ship ship3 = new Ship(new ShipPosition(new Point(1,4),"HORIZONTAL"),ShipType.AIRCARRIER,1);
 		
 		ownField.setShipOnField(ship1);
 		ownField.setShipOnField(ship2);
 		ownField.setShipOnField(ship3);
-		ownField.display();
-		
+		ownField.setTaken();
 	}
 	
 	
